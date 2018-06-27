@@ -9,65 +9,67 @@ var Book = function(author,title,numPages){
 };
 
 
-
-
-Library.prototype.addBook = function(book) {
-  var bookExists = false;
-  for(var i=0; i<this.bookShelf.length; i++) {
-    if(this.bookShelf[i].title === book.title) {
-            bookExist = true;
-           } else {
-             bookExist = false;
+  Library.prototype.addBook = function(book) {
+   for(var i=0; i<this.bookShelf.length; i++) {// && check author, number of pages.
+     if(this.bookShelf[i].title === book.title) {//this currently doesn't allow two books with the same title.
+        console.log('Oops! This book already exists.');
+             return false;
+           }
        }
-      }
-      if(bookExists) {
-        return 'Oops this book already exists';//this doesn't work -it never returns the oops message
-      } else {
-        this.bookShelf.push(book);
-        return 'Your book was successfully added';
-      }
+       this.bookShelf.push(book);
+       console.log('Your book was successfully added');
+       return true;
      }
 
-Library.prototype.removeBookByTitle = function(bookTitle) {
-  var isDeleted = false;
-  for(var i=0; i<this.bookShelf.length; i++){
-    if(this.bookShelf[i].title === bookTitle) {
-      console.log("hello")
-      this.bookShelf.splice(i,1); //this is not working===================there are issues with the title class
-      isDeleted = true;
-    } else {
-      isDeleted = false;
-      console.log('Oops, this book does not exist.')
+
+  Library.prototype.removeBookByTitle = function(bookTitle) {
+    for (var i = 0; i < this.bookShelf.length; i++) {
+      if (this.bookShelf[i].title === bookTitle) {
+        this.bookShelf.splice(i, 1);
+        return true;
+      }
     }
+    return false;
+  };
+
+  Library.prototype.removeBookByAuthor = function(bookAuthor) {
+    var newBookShelf = new Array(); //this is our new array for all the non-removed books
+    for (var i = 0; i < this.bookShelf.length; i++) {
+      if (this.bookShelf[i].author !== bookAuthor) {
+        newBookShelf.push(this.bookShelf[i]);
+      }
+    }
+    if (this.bookShelf.length === newBookShelf.length) {
+      return false;
+    }
+    this.bookShelf = newBookShelf;
+    return true;
+  };
+
+  Library.prototype.getBooksByTitle = function(partialTitle) {
+    var bookMatches = new Array ();
+    for(var i=0; i<this.bookShelf.length; i++) {
+      var currentBook = this.bookShelf[i]
+      var title = currentBook.title
+      if(title.includes(partialTitle)) {
+        bookMatches.push(currentBook);
+      }
+    }
+    return bookMatches;
+  };
+
+
+  function setup (){
+    gLibrary.addBook(book1)
+    gLibrary.addBook(book2)
+    gLibrary.addBook(book3)
+    gLibrary.addBook(book4)
+    gLibrary.addBook(book5)
+    gLibrary.addBook(book6)
+    gLibrary.addBook(book7)
+    gLibrary.addBook(book8)
+    return gLibrary
   }
-  if(isDeleted){
-    return "Deleted!"
-  } else {
-    return "Not Deleted"
-  }
-};
-
-//removeBookByAuthor(authorName)
-// Library.prototype.removeBookByAuthor = function(authorName) {//want to use this solution: https://stackoverflow.com/questions/3954438/how-to-remove-item-from-array-by-value
-//   indexof(author)
-//   // if(authorName === 'string' && authorName === this.bookshelf[i].author) {
-//     this.bookShelf.splice()
-//   }
-// }
-//
-//
-//
-// Library.prototype.getBookByTitle = function(bookTitle) {
-//   if(typeof bookTitle === "string") {//definitely not working. trying to use test but might be easier to use match method
-//     expr = /bookTitle/ }
-//     return expr.test(this.Bookshelf);
-//   }
-
-
-
-// getBookByTitle(title)Purpose: Return all books that completely or partially matches the string
-// title passed into the functionReturn: array of book objects if you find books with matching titles,
-// empty array if no books are found
 
 
 document.addEventListener("DOMContentLoaded", function() {
