@@ -1,13 +1,34 @@
-var Library = function(){
-this.bookShelf = new Array();
+var Library;
+
+(function() {
+  var instance;
+
+  Library = function() {
+    if (instance) {
+      return instance;
+    }
+
+    instance = this;
+    this.bookShelf = []; //Holding array
+  }
+})();
+
+Library.prototype.setLocal = function() {
+  localStorage.setItem('books', JSON.stringify(this.bookShelf));
+  var data = JSON.parse(localStorage.getItem('books'));
 };
 
-var Book = function(author,title,numPages){
-  this.author = author;
-  this.title = title;
-  this.numPages = numPages;
-};
+// localStorage.setItem('bookShelf', JSON.stringify(this.bookShelf));
+// var data = JSON.parse(localStorage.getItem('books'));
 
+var Book = function(author,title,numPages, publishDate, genre, section){
+  this.author = String(author);
+  this.title = String(title);
+  this.numPages = Number(numPages);
+  this.publishDate = new Date (publishDate);
+  this.genre = String(genre);
+  this.section = String(section);
+};
 
   Library.prototype.addBook = function(book) {
    for(var i=0; i<this.bookShelf.length; i++) {// && check author, number of pages.
@@ -20,6 +41,19 @@ var Book = function(author,title,numPages){
        console.log('Your book was successfully added');
        return true;
      }
+
+   Library.prototype.addBooks = function(newBooks) {
+     if (Array.isArray(newBooks)) {
+       var count = 0;
+       for (var i = 0; i < newBooks.length; i++) {
+         if (this.addBook(newBooks[i])) {
+           count++;
+         }
+       }
+       return count;
+     }
+   console.log("Sorry, your input must be an array.")
+ };
 
 
   Library.prototype.removeBookByTitle = function(bookTitle) {
@@ -46,18 +80,44 @@ var Book = function(author,title,numPages){
     return true;
   };
 
+
   Library.prototype.getBooksByTitle = function(partialTitle) {
     var bookMatches = new Array ();
     for(var i=0; i<this.bookShelf.length; i++) {
       var currentBook = this.bookShelf[i]
       var title = currentBook.title
-      if(title.includes(partialTitle)) {
+      if(~title.indexOf(partialTitle)) {
         bookMatches.push(currentBook);
       }
     }
     return bookMatches;
   };
 
+  Library.prototype.getBooksByAuthor = function(partialAuthor) {
+    var bookMatches = new Array ();
+    for(var i=0; i<this.bookShelf.length; i++) {
+      var currentBook = this.bookShelf[i]
+      var author= currentBook.author
+      if(~author.indexOf(partialAuthor)) {
+        bookMatches.push(currentBook);
+      }
+    }
+    return bookMatches;
+  };
+
+Library.prototype.getAuthors = function() {
+  var authNames = new Array ();
+  for(var i=0; i<this.bookShelf.length; i++) {
+    authNames.push(this.bookShelf[i].author);
+    }
+    return new Set(authNames);
+
+};
+
+  Library.prototype.getRandomAuthorName = function() {
+    return this.bookShelf.author[Math.floor(Math.random()*this.bookShelf.length)];
+
+  }
 
   function setup (){
     gLibrary.addBook(book1)
@@ -72,14 +132,15 @@ var Book = function(author,title,numPages){
   }
 
 
+
 document.addEventListener("DOMContentLoaded", function() {
   window.gLibrary = new Library();
-  window.book1 = new Book ("Stephan King", "IT", 400);//these are preloaded books
-  window.book2 = new Book ("Stephan King", "Cujo", 800);
-  window.book3 = new Book ("Stephan King", "Carrie", 1000);
-  window.book4 = new Book ("Margaret Atwood", "The Handmaid’s Tale", 350);
-  window.book5 = new Book ("Margaret Atwood", "Bodily Harm", 350);
-  window.book6 = new Book ("Trevor Noah", "Born a Crime", 625);
-  window.book7 = new Book ("Trevor Noah", "Bored on hit", 625);
-  window.book8 = new Book ("Stephan Noah", "Sit", 625);
+  window.book1 = new Book ("Stephan King", "IT", 400, 1999, "romance", "fiction");//these are preloaded books
+  window.book2 = new Book ("Stephan King", "Cujo", 800, 2014, "thriller", "fiction");
+  window.book3 = new Book ("Stephan King", "Carrie", 1000, 2004, "comedy", "fiction");
+  window.book4 = new Book ("Margaret Atwood", "The Handmaid’s Tale", 350, 1985, "comedy", "non-fiction");
+  window.book5 = new Book ("Margaret Atwood", "Bodily Harm", 350, 1999, "fantasy", "non-fiction");
+  window.book6 = new Book ("Trevor Noah", "Born a Crime", 625, 1975, "romance", "non-fiction");
+  window.book7 = new Book ("Trevor Noah", "Bees", 625, 2003, "thriller", "non-fiction");
+  window.book8 = new Book ("Stephan Noah", "Sit", 625, 2003, "comedy", "fiction");
 });
