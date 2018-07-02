@@ -89,7 +89,7 @@ var Book = function(author,title,numPages, publishDate){
     for(var i=0; i<this.bookShelf.length; i++) {
       var currentBook = this.bookShelf[i]
       var title = currentBook.title
-      if(~title.indexOf(partialTitle)) {
+      if(title.indexOf(partialTitle) !== -1) {
         bookMatches.push(currentBook);
       }
     }
@@ -101,7 +101,7 @@ var Book = function(author,title,numPages, publishDate){
     for(var i=0; i<this.bookShelf.length; i++) {
       var currentBook = this.bookShelf[i]
       var author= currentBook.author
-      if(~author.indexOf(partialAuthor)) {
+      if(author.indexOf(partialAuthor)!== -1) {
         bookMatches.push(currentBook);
       }
     }
@@ -148,7 +148,7 @@ Library.prototype.getAuthors = function() {
 
 document.addEventListener("DOMContentLoaded", function() {
   window.gLibrary = new Library();
-  window.gLibraryTwo = new Library(); //istance two
+  window.gLibraryTwo = new Library(); //instance two
   window.book1 = new Book ("Stephan King", "IT", 400, 1999);//these are preloaded books
   window.book2 = new Book ("Stephan King", "Cujo", 800, 2014);
   window.book3 = new Book ("Stephan King", "Carrie", 1000, 2004);
