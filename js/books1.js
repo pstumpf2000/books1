@@ -7,27 +7,30 @@ var Library;
     if (instance) {
       return instance;
     }
-
+// console.log('hi');
     instance = this;
     this.bookShelf = []; //Holding array
   }
 })();
 
 Library.prototype.setLocal = function() {
+console.log("Bookshelf sent to local storage");
   localStorage.setItem('books', JSON.stringify(this.bookShelf));
-  var data = JSON.parse(localStorage.getItem('books'));
 };
 
-// localStorage.setItem('bookShelf', JSON.stringify(this.bookShelf));
-// var data = JSON.parse(localStorage.getItem('books'));
+Library.prototype.getLocal = function() {
+  var bookData = JSON.parse(localStorage.getItem('books'));
+    for (var i=0; i<bookData.length; i++) {
+      this.bookShelf[i] = new Book(bookData[i].author, bookData[i].title, bookData[i].numPages, bookData[i].publishDate);
+      console.log(this.bookShelf[i]);
+}
+};
 
-var Book = function(author,title,numPages, publishDate, genre, section){
+var Book = function(author,title,numPages, publishDate){
   this.author = String(author);
   this.title = String(title);
   this.numPages = Number(numPages);
-  this.publishDate = new Date (publishDate);
-  this.genre = String(genre);
-  this.section = String(section);
+  this.publishDate = new Date (publishDate); //I'm having issues with the date need to try 'get UTC full year
 };
 
   Library.prototype.addBook = function(book) {
@@ -52,7 +55,7 @@ var Book = function(author,title,numPages, publishDate, genre, section){
        }
        return count;
      }
-   console.log("Sorry, your input must be an array.")
+   return "Sorry, your input must be an array."
  };
 
 
@@ -107,17 +110,28 @@ var Book = function(author,title,numPages, publishDate, genre, section){
 
 Library.prototype.getAuthors = function() {
   var authNames = new Array ();
+  var uniqueAuthors = new Set(authNames);
   for(var i=0; i<this.bookShelf.length; i++) {
     authNames.push(this.bookShelf[i].author);
     }
-    return new Set(authNames);
 
+    return uniqueAuthors;
 };
 
   Library.prototype.getRandomAuthorName = function() {
-    return this.bookShelf.author[Math.floor(Math.random()*this.bookShelf.length)];
-
+  if(this.bookShelf.length > 0) {
+    return((this.bookShelf[Math.floor(Math.random()*this.bookShelf.length)].author));
   }
+     return null;
+};
+
+
+  Library.prototype.getRandomBook = function() {
+    if(this.bookShelf.length > 0) {
+      return(this.bookShelf[Math.floor(Math.random()*this.bookShelf.length)])
+    }
+       return null;
+};
 
   function setup (){
     gLibrary.addBook(book1)
@@ -135,12 +149,13 @@ Library.prototype.getAuthors = function() {
 
 document.addEventListener("DOMContentLoaded", function() {
   window.gLibrary = new Library();
-  window.book1 = new Book ("Stephan King", "IT", 400, 1999, "romance", "fiction");//these are preloaded books
-  window.book2 = new Book ("Stephan King", "Cujo", 800, 2014, "thriller", "fiction");
-  window.book3 = new Book ("Stephan King", "Carrie", 1000, 2004, "comedy", "fiction");
-  window.book4 = new Book ("Margaret Atwood", "The Handmaid’s Tale", 350, 1985, "comedy", "non-fiction");
-  window.book5 = new Book ("Margaret Atwood", "Bodily Harm", 350, 1999, "fantasy", "non-fiction");
-  window.book6 = new Book ("Trevor Noah", "Born a Crime", 625, 1975, "romance", "non-fiction");
-  window.book7 = new Book ("Trevor Noah", "Bees", 625, 2003, "thriller", "non-fiction");
-  window.book8 = new Book ("Stephan Noah", "Sit", 625, 2003, "comedy", "fiction");
+  window.gLibraryTwo = new Library(); //istance two
+  window.book1 = new Book ("Stephan King", "IT", 400, 1999);//these are preloaded books
+  window.book2 = new Book ("Stephan King", "Cujo", 800, 2014);
+  window.book3 = new Book ("Stephan King", "Carrie", 1000, 2004);
+  window.book4 = new Book ("Margaret Atwood", "The Handmaid’s Tale", 350, 1985);
+  window.book5 = new Book ("Margaret Atwood", "Bodily Harm", 350, 1999);
+  window.book6 = new Book ("Trevor Noah", "Born a Crime", 625, 1975);
+  window.book7 = new Book ("Trevor Noah", "Bees", 625, 2003);
+  window.book8 = new Book ("Stephan Noah", "Sit", 625, 2003);
 });
