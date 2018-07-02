@@ -114,7 +114,6 @@ Library.prototype.getAuthors = function() {
   for(var i=0; i<this.bookShelf.length; i++) {
     authNames.push(this.bookShelf[i].author);
     }
-
     return uniqueAuthors;
 };
 
