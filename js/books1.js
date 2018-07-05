@@ -135,9 +135,9 @@ Library.prototype.getAuthors = function() {
        return null;
 };
 
-Library.prototype.search = function(input) {
-  if(input && ==="string")
-}
+// Library.prototype.search = function(input) {
+//   if(input && ==="string")
+// }
 
   function setup (){
     gLibrary.addBook(book1)

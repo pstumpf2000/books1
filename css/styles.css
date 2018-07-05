@@ -1,0 +1,54 @@
+
+body, a{
+  color: gray;
+}
+
+#top-nav {
+  width: 100%;
+  position: fixed;
+  /* border-bottom: 1px solid gray; */
+  background-color: white;
+  padding-top: 1em;
+  z-index: 1;
+}
+
+/* #table {
+  /* margin: 0 19.5% 0 19.5%; */
+/* } */
+/* .dropdown {
+
+} */
+.suggestion {
+  font-size: 14px;
+  color: white;
+  margin:1em 0 0 0;
+  width: 100%;
+}
+
+/* .invisible {
+  visibility: hidden;
+} */
+.cover-art {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.all-authors {
+  font-size: 10px;
+}
+.jumbotron {
+  background-image: url("/Users/petrastumpf/Documents/Projects/books1/assets/punchbug.jpg");
+  width: 100%;
+  margin-top: 0;
+  height: 400px;
+}
+
+.main-search {
+  padding-top: 8em;
+}
+.all-authors {
+  margin-left: 5px;
+}
+.login {
+  text-decoration: none;
+}
