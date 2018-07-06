@@ -1,6 +1,13 @@
 
-body, a{
+a{
   color: gray;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 18px;
+}
+
+body, th, btn {
+  color: gray;
+  font-family: 'Open Sans', sans-serif;
 }
 
 #top-nav {
@@ -12,12 +19,11 @@ body, a{
   z-index: 1;
 }
 
-/* #table {
-  /* margin: 0 19.5% 0 19.5%; */
-/* } */
-/* .dropdown {
+.logo {
+  font-family: 'Amatic SC', cursive;
+  font-size: 34px;
+}
 
-} */
 .suggestion {
   font-size: 14px;
   color: white;
@@ -25,9 +31,6 @@ body, a{
   width: 100%;
 }
 
-/* .invisible {
-  visibility: hidden;
-} */
 .cover-art {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -37,18 +40,32 @@ body, a{
   font-size: 10px;
 }
 .jumbotron {
-  background-image: url("/Users/petrastumpf/Documents/Projects/books1/assets/punchbug.jpg");
+  /* background-image: url("/Users/petrastumpf/Documents/Projects/books1/assets/punchbug.jpg"); */
+  background-color: transparent;
   width: 100%;
   margin-top: 0;
   height: 400px;
 }
 
+.nav-link {
+  background-color: white;
+
+}
+
+.login {
+  
+}
 .main-search {
   padding-top: 8em;
 }
 .all-authors {
   margin-left: 5px;
 }
-.login {
-  text-decoration: none;
+
+input:invalid {
+  border: 1px solid red;
+}
+
+input:valid {
+  border: 1px solid gray;
 }
