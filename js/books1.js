@@ -135,9 +135,9 @@ Library.prototype.getAuthors = function() {
        return null;
 };
 
-Library.prototype.search = function(input) {
-  if(input && ==="string")
-}
+// Library.prototype.search = function(input) {
+//   if(input && ==="string")
+// }
 
   function setup (){
     gLibrary.addBook(book1)
@@ -151,17 +151,28 @@ Library.prototype.search = function(input) {
     return gLibrary
   }
 
-document.addEventListener("DOMContentLoaded", function() {
-  window.gLibrary = new Library();
-  window.gLibraryTwo = new Library(); //instance two
-  window.book1 = new Book ("Stephan King", "IT", 400, 1999);//these are preloaded books
-  window.book2 = new Book ("Stephan King", "Cujo", 800, 2014);
-  window.book3 = new Book ("Stephan King", "Carrie", 1000, 2004);
-  window.book4 = new Book ("Margaret Atwood", "The Handmaid’s Tale", 350, 1985);
-  window.book5 = new Book ("Margaret Atwood", "Bodily Harm", 350, 1999);
-  window.book6 = new Book ("Trevor Noah", "Born a Crime", 625, 1975);
-  window.book7 = new Book ("Trevor Noah", "Bees", 625, 2003);
-  window.book8 = new Book ("Stephan Noah", "Sit", 625, 2003);
-  window.book9 = new Book ("Jane Doe", "Hats", 625, 2003);
-  window.book10 = new Book ("John Doe", "Shoes", 625, 2003);
-});
+    var book1 = new Book ("Stephan King", "IT", 400, 1999);//these are preloaded books
+    var book2 = new Book ("Stephan King", "Cujo", 800, 2014);
+    var book3 = new Book ("Stephan King", "Carrie", 1000, 2004);
+    var book4 = new Book ("Margaret Atwood", "The Handmaid’s Tale", 350, 1985);
+    var book5 = new Book ("Margaret Atwood", "Bodily Harm", 350, 1999);
+    // window.book6 = new Book ("Trevor Noah", "Born a Crime", 625, 1975);
+    // window.book7 = new Book ("Trevor Noah", "Bees", 625, 2003);
+    // window.book8 = new Book ("Stephan Noah", "Sit", 625, 2003);
+    // window.book9 = new Book ("Jane Doe", "Hats", 625, 2003);
+    // window.book10 = new Book ("John Doe", "Shoes", 625, 2003);
+
+// document.addEventListener("DOMContentLoaded", function() {
+//   // window.gLibrary = new Library();
+//   // window.gLibraryTwo = new Library(); //instance two
+//   window.book1 = new Book ("Stephan King", "IT", 400, 1999);//these are preloaded books
+//   window.book2 = new Book ("Stephan King", "Cujo", 800, 2014);
+//   window.book3 = new Book ("Stephan King", "Carrie", 1000, 2004);
+//   window.book4 = new Book ("Margaret Atwood", "The Handmaid’s Tale", 350, 1985);
+//   window.book5 = new Book ("Margaret Atwood", "Bodily Harm", 350, 1999);
+//   window.book6 = new Book ("Trevor Noah", "Born a Crime", 625, 1975);
+//   window.book7 = new Book ("Trevor Noah", "Bees", 625, 2003);
+//   window.book8 = new Book ("Stephan Noah", "Sit", 625, 2003);
+//   window.book9 = new Book ("Jane Doe", "Hats", 625, 2003);
+//   window.book10 = new Book ("John Doe", "Shoes", 625, 2003);
+// });
