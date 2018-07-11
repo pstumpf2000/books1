@@ -20,10 +20,21 @@ console.log("Bookshelf sent to local storage");
 
 Library.prototype.getLocal = function() {
   var bookData = JSON.parse(localStorage.getItem('books'));
-    if (bookData) {
-      window.bookShelf[i] = new Book(bookData[i].author, bookData[i].title, bookData[i].numPages, bookData[i].publishDate);
-      console.log(window.bookShelf[i]);
-}
+  console.log(bookData)
+  return window.bookShelf = bookData;
+    // if (bookData) {
+    //   window.bookShelf[i] = new Book(bookData[i].author, bookData[i].title, bookData[i].numPages, bookData[i].publishDate);
+    //   console.log(window.bookShelf[i]);
+// }
+};
+
+  Library.prototype._handleEventTrigger= function(sEvent, oData) {
+    var oData = oData || {}; //sets oData to an empty object if it does not have data
+      if (sEvent) {
+    var event = new CustomEvent(sEvent, oData);
+   document.dispatchEvent(event);
+ }
+// this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
 };
 
   Library.prototype.addBook = function(book) {
@@ -47,6 +58,9 @@ Library.prototype.getLocal = function() {
            count++;
               this.setLocal(window.bookShelf);
          }
+       }
+       if(count >0) {
+         this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
        }
        return count;
      }

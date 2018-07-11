@@ -24,12 +24,12 @@ AddBooksUI.prototype._addBooksToLib = function () {
   if (booksToAdd.length) {
     console.log("temp has length")
     if(this.addBooks(booksToAdd)) {
+      console.log(booksToAdd)
       this._clearQueue();
-    } else {
-      alert("Please add at least one book.");
     }
-  }
-
+  } else {
+    alert("Please add at least one book.");
+};
 };
 
 AddBooksUI.prototype._handleModalOpen = function() {
@@ -146,6 +146,6 @@ AddBooksUI.prototype._qBooks = function() {
 
 
 $(function(){
-  window.gAddBooksUI = new AddBooksUI($('#addBookModal'));//sends in the jquery addbooks selector and reassinging to the instance.//
+  window.gAddBooksUI = new AddBooksUI();//sends in the jquery addbooks selector and reassinging to the instance.//
   window.gAddBooksUI.init();
 });

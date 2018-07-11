@@ -1,4 +1,5 @@
 var Book = function(oArgs){
+  this.coverArt = oArgs.coverArt;
   this.title = String(oArgs.title);
   this.author = String(oArgs.author);
   this.numPages = Number(oArgs.numPages);
