@@ -58,7 +58,7 @@
             <tr>
               <th scope="col"></th>
               <th scope="col">Title</th>
-              <th scope="col">Author<span class="badge badge-pill badge-secondary all-authors" data-toggle="modal" data-target="#allAuthorsModal">See All</span></th>
+              <th scope="col">Author<span id="all-unique-authors" class="badge badge-pill badge-secondary">See All</span></th>
               <th scope="col">Pages</th>
               <th scope="col">Publish Date</th>
               <th scope="col">Rating</th>
@@ -239,18 +239,18 @@
           </button>
         </div>
         <div class="modal-body">
-  <form>
-    <div class="form-group">
+  <form id="book-details">
+    <div class="form-group" >
       <label for="titleIput">Title</label>
-      <input class="form-control title" type="text" placeholder="Book Title" required>
+      <input class="form-control" id="add-title" name="title" type="text" placeholder="Book Title" required>
       <label for="authorInput">Author</label>
-      <input class="form-control author" type="text" placeholder="Author's Full Name" required>
+      <input class="form-control" id="add-author" name="author" type="text" placeholder="Author's Full Name" required>
       <label for="pagesInput">Pages</label>
-      <input class="form-control pages" type="number" placeholder="635">
+      <input class="form-control" id="add-pages" type="number" name="pages" placeholder="635">
       <label for="dateInput">Date Published</label>
-      <input class="form-control date" type="date" placeholder="Date" required>
+      <input class="form-control" id="add-date" type="date" name="pubDate" placeholder="Date" required>
       <label for="ratingInput">Rating</label>
-        <select multiple class="form-control" id="exampleFormControlSelect2">
+        <select multiple class="form-control" id="add-rating" name="rating">
           <option>1</option>
           <option>2</option>
           <option>3</option>
@@ -259,16 +259,16 @@
         </select>
       <div class="custom-file">
         <div class="form-group">
-          <input type="file" class="custom-file-input" id="customFile">
+          <input type="file" class="custom-file-input" id="customFile" name="coverArt">
           <label class="custom-file-label cover-art" for="customFile">Choose Cover Art file</label>
         </div>
       </div>
     </div>
   </form>
-      <p class="book-count">You've created 1 book</p>
+      <p class="book-count"></p>
         <div class="modal-footer btn-group-vertical">
-          <button type="button" class="btn btn-outline-primary">Add & Close</button>
-          <button type="button" class="btn btn-outline-primary">Add & Create Another Book</button>
+          <button type="submit" class="btn btn-outline-primary" id="add-temp-to-lib-btn">Submit Book(s) & Close</button>
+          <button type="button" class="btn btn-outline-primary" id="add-to-queue-btn">Add Book to Queue & Create Another Book</button>
           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -364,12 +364,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="allAuthorsModalLabel">All Authors</h5>
-        <button type="button" class="close" id="show-all-button" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>All the authors</p>
+        <!-- <p>All the authors</p> -->
+        <ul>
+          <li>test</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -476,7 +479,7 @@
     <script src="js/jquery.js" charset="utf-8"></script>
     <script src="js/util.js" charset="utf-8"></script>
     <script src="js/showAuthorsUI.js" charset="utf-8"></script>
-    <script src="js/AddBooks.js" charset="utf-8"></script>
+    <script src="js/AddBooksUI.js" charset="utf-8"></script>
     <script src="js/bootstrap.bundle.js" charset="utf-8"></script>
 
   </body>

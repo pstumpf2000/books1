@@ -6,13 +6,13 @@ var ShowAuthorsUI = function(container){
 ShowAuthorsUI.prototype = Object.create(Library.prototype);
 
 ShowAuthorsUI.prototype.init = function () {
-  this.recover();
+  this.getLocal();
   this._bindEvents();
   return false;
 };
 
 ShowAuthorsUI.prototype._bindEvents = function () {
-  $('button#show-all').on('click', $.proxy(this._handleShowAuthors, this));
+  $('#all-unique-authors').on('click', $.proxy(this._handleShowAuthors, this));
   return false;
 };
 
@@ -24,7 +24,6 @@ ShowAuthorsUI.prototype._handleShowAuthors = function () {
   } else {
     alert('Nothing in library!');
   }
-
   return false;
 };
 
@@ -39,6 +38,6 @@ ShowAuthorsUI.prototype._createUlOfAuthors = function (authors) {
 };
 
 $(function(){
-  window.gShowAuthUI = new ShowAuthorsUI($('#allAuthorModal'));
-  window.gShowAuthUI.init();
+  window.gShowAuthorsUI = new ShowAuthorsUI($('#allAuthorsModal'));
+  window.gShowAuthorsUI.init();
 });

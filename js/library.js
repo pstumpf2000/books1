@@ -20,13 +20,11 @@ console.log("Bookshelf sent to local storage");
 
 Library.prototype.getLocal = function() {
   var bookData = JSON.parse(localStorage.getItem('books'));
-    for (var i=0; i<bookData.length; i++) {
+    if (bookData) {
       window.bookShelf[i] = new Book(bookData[i].author, bookData[i].title, bookData[i].numPages, bookData[i].publishDate);
       console.log(window.bookShelf[i]);
 }
 };
-
-
 
   Library.prototype.addBook = function(book) {
    for(var i=0; i<window.bookShelf.length; i++) {// && check author, number of pages.
@@ -35,7 +33,7 @@ Library.prototype.getLocal = function() {
              return false;
      }
    }
-   window.bookShelf.push(book);
+   window.bookShelf.push(new Book(book));
    console.log('Your book was successfully added');
    this.setLocal(window.bookShelf);
    return true;
@@ -112,9 +110,10 @@ Library.prototype.getAuthors = function() {
   for(var i=0; i<window.bookShelf.length; i++) {
     authNames.push(window.bookShelf[i].author);
   }
-  var uniqueAuthors = new Set(authNames);
+  var uniqueAuthors = Array.from(new Set(authNames));
   return uniqueAuthors;
 };
+
 
   Library.prototype.getRandomAuthorName = function() {
   if(window.bookShelf.length > 0) {
@@ -133,24 +132,24 @@ Library.prototype.getAuthors = function() {
 // Library.prototype.search = function(input) {
 //   if(input && ==="string")
 // }
+  //
+  // function setup (){
+  //   gLibrary.addBook(book1)
+  //   gLibrary.addBook(book2)
+  //   gLibrary.addBook(book3)
+  //   gLibrary.addBook(book4)
+  //   gLibrary.addBook(book5)
+  //   gLibrary.addBook(book6)
+  //   gLibrary.addBook(book7)
+  //   gLibrary.addBook(book8)
+  //   return gLibrary
+  // }
 
-  function setup (){
-    gLibrary.addBook(book1)
-    gLibrary.addBook(book2)
-    gLibrary.addBook(book3)
-    gLibrary.addBook(book4)
-    gLibrary.addBook(book5)
-    gLibrary.addBook(book6)
-    gLibrary.addBook(book7)
-    gLibrary.addBook(book8)
-    return gLibrary
-  }
-
-    var book1 = new Book ("Stephan King", "IT", 400, 1999);//these are preloaded books
-    var book2 = new Book ("Stephan King", "Cujo", 800, 2014);
-    var book3 = new Book ("Stephan King", "Carrie", 1000, 2004);
-    var book4 = new Book ("Margaret Atwood", "The Handmaid’s Tale", 350, 1985);
-    var book5 = new Book ("Margaret Atwood", "Bodily Harm", 350, 1999);
+    // var book1 = {"Stephan King", "IT", 400, 1999};//these are preloaded books
+    // var book2 = {"Stephan King", "Cujo", 800, 2014};
+    // var book3 = {"Stephan King", "Carrie", 1000, 2004};
+    // var book4 = {"Margaret Atwood", "The Handmaid’s Tale", 350, 1985};
+    // var book5 = {"Margaret Atwood", "Bodily Harm", 350, 1999};
     // window.book6 = new Book ("Trevor Noah", "Born a Crime", 625, 1975);
     // window.book7 = new Book ("Trevor Noah", "Bees", 625, 2003);
     // window.book8 = new Book ("Stephan Noah", "Sit", 625, 2003);
