@@ -22,10 +22,12 @@ AddBooksUI.prototype._bindEvents = function () {
 AddBooksUI.prototype._addBooksToLib = function () {
   var booksToAdd = this._tempBookShelf
   if (booksToAdd.length) {
-    console.log("temp has length")
+    // console.log("temp has length")
     if(this.addBooks(booksToAdd)) {
-      console.log(booksToAdd)
+      // console.log(booksToAdd)
+      this.$container.modal('hide');
       this._clearQueue();
+
     }
   } else {
     alert("Please add at least one book.");
@@ -58,11 +60,12 @@ AddBooksUI.prototype._clearQueue = function() {
 //   });
 // });
 AddBooksUI.prototype._makeBooks = function() {
+
   var newInputs = $("form").serializeArray();
   // console.log(newInputs)
   var qBook = new Object();
 
-  $.each(newInputs, function(i, entry) {
+  $.each(newInputs, function(index, entry) {
     if(entry.value) {
     qBook[entry.name] = entry.value;
     $("#book-details")[0].reset()
@@ -72,13 +75,40 @@ AddBooksUI.prototype._makeBooks = function() {
 return qBook;
 };
 
+// var inputs_required = all inputs from my form which have attribute required;
+// function check_required_inputs() {
+//    if(inputs_required != "") {
+//      //create ajax with serialize() and submit form;
+//    }
+// } else {
+//    //highlight inputs that are empty and show a message;
+// }
+
 AddBooksUI.prototype._qBooks = function() {
+  // var inputsRequired = $("input[required]");
   var tempBook = this._makeBooks();
-  console.log(tempBook);
-
-  this._tempBookShelf.push(tempBook);
-  this.$container.find('.book-count').html("You have " + this._tempBookShelf.length + " book(s) in your queue.");
-
+//   var allComplete = true;
+//   var arr = [];
+// //   // console.log(Array.isArray(inputsRequired), 'isArray')
+// //
+// //   // $.each(inputsRequired, function(index, input) {
+//   for(var key in inputsRequired) {
+//     arr.push($('inputsRequired[key]').val())
+//     console.log(arr, 'arr');
+//
+// //   // if($('inputsRequired[key].val()') === "") {
+// //   //   console.log(inputsRequired[key].val(), 'value');
+// //   //   allComplete = false;
+// //   // }
+// };
+  // if(allComplete) {
+    this._tempBookShelf.push(tempBook);
+    this.$container.find('.book-count').html("You have " + this._tempBookShelf.length + " book(s) in your queue.");
+  // }
+  // else {
+  //   alert("There are one or more empty fields.");
+  //   return;
+  // }
 };
   // var bookHolder = {};
    // jQuery.each( newInputs, function( i, newInput);

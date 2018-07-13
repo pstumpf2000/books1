@@ -19,8 +19,8 @@ console.log("Bookshelf sent to local storage");
 };
 
 Library.prototype.getLocal = function() {
-  var bookData = JSON.parse(localStorage.getItem('books'));
-  console.log(bookData)
+  var bookData = JSON.parse(localStorage.getItem('books')) || [];
+  // console.log(bookData)
   return window.bookShelf = bookData;
     // if (bookData) {
     //   window.bookShelf[i] = new Book(bookData[i].author, bookData[i].title, bookData[i].numPages, bookData[i].publishDate);
@@ -47,6 +47,7 @@ Library.prototype.getLocal = function() {
    window.bookShelf.push(new Book(book));
    console.log('Your book was successfully added');
    this.setLocal(window.bookShelf);
+   this._handleEventTrigger('objUpdate');
    return true;
   }
 

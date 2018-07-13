@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Josefin+Sans|Open+Sans" rel="stylesheet">
     <title>Hello World</title>
   </head>
@@ -54,8 +55,8 @@
     <div class="col-md-1"></div><!--this is to offset-->
       <div class="col-md-9">
         <table class="table table-hover" id="data-table">
-          <thead>
-            <tr>
+          <thead id="data-table-head">
+            <!-- <tr>
               <th scope="col"></th>
               <th scope="col">Title</th>
               <th scope="col">Author<span id="all-unique-authors" class="badge badge-pill badge-secondary">See All</span></th>
@@ -64,10 +65,14 @@
               <th scope="col">Rating</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete?</th>
-            </tr>
+            </tr> -->
           </thead>
           <tbody>
             <tr>
+              <td>Your Library is empty.</td>
+            </tr>
+
+            <!-- <tr>
               <th data-toggle="modal" data-target="#singleBookModal" scope="row"><img src="https://placebeyonce.com/50-80" alt="Italian Trulli"></th>
               <td contentEditable=true>Title</td>
               <td class="contentEditable">Author</td>
@@ -83,7 +88,7 @@
                   <label class="custom-control-label" for="customCheck1"></label>
                 </div>
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -108,11 +113,11 @@
       <label for="titleIput">Title</label>
       <input class="form-control" id="add-title" name="title" type="text" placeholder="Book Title" required>
       <label for="authorInput">Author</label>
-      <input class="form-control" id="add-author" name="author" type="text" placeholder="Author's Full Name" required>
+      <input class="form-control" id="add-author" name="author" type="text" placeholder="Author's Full Name">
       <label for="pagesInput">Pages</label>
-      <input class="form-control" id="add-pages" type="number" name="pages" placeholder="635">
+      <input class="form-control" id="add-numPages" type="number" name="numPages" placeholder="635">
       <label for="dateInput">Date Published</label>
-      <input class="form-control" id="add-date" type="date" name="pubDate" placeholder="Date" required>
+      <input class="form-control" id="add-date" type="date" name="pubDate" placeholder="Date">
       <label for="ratingInput">Rating</label>
         <select multiple class="form-control" id="add-rating" name="rating">
           <option>1</option>
@@ -287,6 +292,8 @@
           <button type="button" class="btn btn-outline-primary">Discover by Author</button>
           <button type="button" class="btn btn-outline-primary">Discover by Book Title</button>
         </form>
+      </div>
+      <div class="modal-footer">
       </div>
     </div>
   </div>
