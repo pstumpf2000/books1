@@ -114,7 +114,8 @@ DataTableUI.prototype._createRow = function (book) {
   for(var key in book){
     var td = document.createElement('td');
     $(td).text(book[key]);
-    // $('td').addClass('contentEditable=true')//this doesn't work//
+    $(book[key][0]).attr('title')
+    // $('td').addClass('contentEditable=true')//this doesn't work//'contentEditable', 'true'
     tr.append(td);
   }
   tr.append(deleteBox);
@@ -130,8 +131,9 @@ DataTableUI.prototype._createRow = function (book) {
 DataTableUI.prototype._deleteRow = function (e) {
   // deletedBooks = new Array ();
   // $tr = $('tr');
-title = $(event.target).closest('tr').find('.title')//need to assign this class somewhere or return the row and iterate through it?
-
+title = $(event.target).closest('tr').find('title')//need to assign this class somewhere or return the row and iterate through it?
+console.log(e)
+console.log(title);
   // $(e.currentTarget){
   //   console.log(e)
   //
