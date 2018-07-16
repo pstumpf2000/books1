@@ -70,7 +70,7 @@ AddBooksUI.prototype._makeBooks = function() {
     qBook[entry.name] = entry.value;
     $("#book-details")[0].reset()
     }
-    // console.log(qBook)
+    console.log(qBook)
 });
 return qBook;
 };

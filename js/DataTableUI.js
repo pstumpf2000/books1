@@ -20,7 +20,7 @@ DataTableUI.prototype._bindEvents = function () {
 DataTableUI.prototype._bindCustomListeners = function () {
   $(document).on('objUpdate', $.proxy(this._updateTable, this));
   $(document).one('objUpdate', $.proxy(this._addPill, this));
-  $(document).on('click','delete-row', $.proxy(this._deleteRow, this));
+  $(document).on('click','.delete-row', $.proxy(this._deleteRow, this));
 };
 
 // <thead>
@@ -45,7 +45,7 @@ DataTableUI.prototype._updateTable = function (e) {
   $thead.append(_self._createTableHead());
 
   if(window.bookShelf.length) {
-    console.log("hi")
+    // console.log("hi")
     // this.$container.find('#data-table-head').replaceWith(this._createTableHead(window.bookShelf[0]))
   // this._createTableHead()
   var $tbody = this.$container.find('tbody');
@@ -114,37 +114,27 @@ DataTableUI.prototype._createRow = function (book) {
   for(var key in book){
     var td = document.createElement('td');
     $(td).text(book[key]);
-    $(book[key][0]).attr('title')
+    // console.log(book[key][0]);
+    // $([key][0]).attr('title')// this is to create the attribute of title on the row so I can delete it using the title
     // $('td').addClass('contentEditable=true')//this doesn't work//'contentEditable', 'true'
     tr.append(td);
   }
   tr.append(deleteBox);
 
   $(deleteIcon).addClass("far fa-times-circle btn delete-row");
+  $(deleteIcon).attr("data-bookTitle", book.title);//this will allow me to use the attribute, booktitle, when I call an event on this element
   deleteBox.append(deleteIcon);
 
   // tr.append(document.createElement('td').append(deleteInput));
-  console.log(tr);
+  // console.log(tr);
   return tr;
 };
 
 DataTableUI.prototype._deleteRow = function (e) {
-  // deletedBooks = new Array ();
-  // $tr = $('tr');
-title = $(event.target).closest('tr').find('title')//need to assign this class somewhere or return the row and iterate through it?
-console.log(e)
-console.log(title);
-  // $(e.currentTarget){
-  //   console.log(e)
-  //
-  //         return confirm('Are you sure?');
-  //     };
+  this.removeBookByTitle($(e.currentTarget).attr("data-bookTitle"));
 
+  console.log("delete test")
 
-
-//   $('tr').on('click', function(e){
-//      $('delete-row').closest('tr').remove()
-// }
 }
 
 $(function(){

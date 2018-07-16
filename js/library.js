@@ -61,7 +61,7 @@ Library.prototype.getLocal = function() {
          }
        }
        if(count >0) {
-         this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
+         // this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
        }
        return count;
      }
@@ -74,6 +74,7 @@ Library.prototype.getLocal = function() {
       if (window.bookShelf[i].title === bookTitle) {
         window.bookShelf.splice(i, 1);
         this.setLocal(window.bookShelf);
+        this._handleEventTrigger('objUpdate');
         return true;
       }
     }
@@ -92,9 +93,22 @@ Library.prototype.getLocal = function() {
     }
     window.bookShelf = newBookShelf;
     this.setLocal(window.bookShelf);
+    this._handleEventTrigger('objUpdate');
     return true;
   };
 
+
+Library.prototype.search = function (searchInput) { //this will search by author and title
+   var searchResults = new Array ();
+
+   var titleResults = this.getBooksByTitle(searchInput);
+   var authorResults = this.getBooksByAuthor(searchInput);
+
+   Array.prototype.push.apply( searchResults, titleResults );
+   Array.prototype.push.apply( searchResults, authorResults );
+
+   return searchResults;
+}
 
   Library.prototype.getBooksByTitle = function(partialTitle) {
     var bookMatches = new Array ();
@@ -119,6 +133,8 @@ Library.prototype.getLocal = function() {
   }
   return bookMatches;
 };
+
+
 
 Library.prototype.getAuthors = function() {
   var authNames = new Array ();

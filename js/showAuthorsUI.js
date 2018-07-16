@@ -22,7 +22,7 @@ ShowAuthorsUI.prototype._handleShowAuthors = function () {
     this.$container.modal('show');
     this.$container.find('.modal-body').html(this._createUlOfAuthors(authors));
   } else {
-    alert('Nothing in library!');
+    alert('Oops, there are no authors to display.');
   }
   return false;
 };
