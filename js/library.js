@@ -28,10 +28,11 @@ Library.prototype.getLocal = function() {
 // }
 };
 
-  Library.prototype._handleEventTrigger= function(sEvent, oData) {
+  Library.prototype._handleEventTrigger = function(sEvent, oData) {
+    console.log("event handled");
     var oData = oData || {}; //sets oData to an empty object if it does not have data
       if (sEvent) {
-    var event = new CustomEvent(sEvent, oData);
+    var event = new CustomEvent(sEvent,{'detail': oData});
    document.dispatchEvent(event);
  }
 // this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
@@ -99,16 +100,31 @@ Library.prototype.getLocal = function() {
 
 
 Library.prototype.search = function (searchInput) { //this will search by author and title
-   var searchResults = new Array ();
+  var searchResults = this.getBooksByTitle(searchInput).concat(this.getBooksByAuthor(searchInput)).uniqueObj();
 
-   var titleResults = this.getBooksByTitle(searchInput);
-   var authorResults = this.getBooksByAuthor(searchInput);
-
-   Array.prototype.push.apply( searchResults, titleResults );
-   Array.prototype.push.apply( searchResults, authorResults );
-
-   return searchResults;
+  if (searchResults.length) {
+    this._handleEventTrigger('subsetOfBookshelf', searchResults);
+  } else {
+    alert("Please refine your search.");
+  }
+  return searchResults;
 }
+
+   // uniqueResults = new Array ();
+   // return searchResults;                        value,index,self
+ //   uniqueResults = searchResults.filter(function(value,index,array){
+ //   // TO UNDERSTAND HOW THIS WORKS
+ //   console.log(array.title);
+ //   console.log(array.title.indexOf(value.title));
+ //   console.log(value.title+"=value");
+ //   console.log(index+"=index");
+ //   // console.log("COMPARE: " + array.indexOf(value) + " === " + index);
+ // return array.title.indexOf(value.title) === index; //if callback is true add author to returned array
+ // })
+ // return uniqueResults;
+   // var uniqueResults = Array.from(new Set(searchResults));
+   // return uniqueResults;
+
 
   Library.prototype.getBooksByTitle = function(partialTitle) {
     var bookMatches = new Array ();
@@ -116,7 +132,7 @@ Library.prototype.search = function (searchInput) { //this will search by author
       var currentBook = window.bookShelf[i]
       var title = currentBook.title
       if(title.indexOf(partialTitle) !== -1) {
-        bookMatches.push(currentBook);
+        bookMatches.push(new Book(currentBook));
       }
     }
     return bookMatches;
@@ -128,7 +144,7 @@ Library.prototype.search = function (searchInput) { //this will search by author
     var currentBook = window.bookShelf[i]
     var author= currentBook.author
     if(author.indexOf(partialAuthor)!== -1) {
-      bookMatches.push(currentBook);
+      bookMatches.push(new Book(currentBook));
     }
   }
   return bookMatches;
@@ -148,14 +164,17 @@ Library.prototype.getAuthors = function() {
 
   Library.prototype.getRandomAuthorName = function() {
   if(window.bookShelf.length > 0) {
+
     return((window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)].author));
   }
     return null;
 };
 
   Library.prototype.getRandomBook = function() {
+
     if(window.bookShelf.length > 0) {
-      return(window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)])
+      var randomBook = (new Book(window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)]));
+      return randomBook.title;
     }
        return null;
 };

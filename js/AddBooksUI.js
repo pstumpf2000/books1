@@ -16,22 +16,32 @@ AddBooksUI.prototype._bindEvents = function () {
   // $('#add-to-queue-btn').on('click', $.proxy(this._makeBooks, this))
   // $('#add-temp-to-lib-btn').on('click', $.proxy(this._clearQueue, this))
   $('#add-temp-to-lib-btn').on('click', $.proxy(this._addBooksToLib, this))
+  $('#add-temp-to-lib-btn').on('click', $.proxy(this._qBooks, this))
   $('#add-to-queue-btn').on('click', $.proxy(this._qBooks, this))
 };
 
 AddBooksUI.prototype._addBooksToLib = function () {
   var booksToAdd = this._tempBookShelf
   if (booksToAdd.length) {
+    if ($("#add-title").val() !== "") {
+      // console.log("hi")
+    var formBook = this._makeBooks()
+    this.addBook(formBook);
+    }
     // console.log("temp has length")
     if(this.addBooks(booksToAdd)) {
       // console.log(booksToAdd)
       this.$container.modal('hide');
       this._clearQueue();
-
+      alert("Success! Books added to queue.")
     }
+  } else if ($("#add-title").val() !== ""){
+    var formBook = this._makeBooks()
+    this.addBook(formBook);
+    this.$container.modal('hide');
   } else {
     alert("Please add at least one book.");
-};
+  };
 };
 
 AddBooksUI.prototype._handleModalOpen = function() {
@@ -39,76 +49,31 @@ AddBooksUI.prototype._handleModalOpen = function() {
 };
 
 AddBooksUI.prototype._clearQueue = function() {
-  if(this._tempBookShelf.length) {
-      this._tempBookShelf = new Array ();
-    }
-  return "Please add at least one book to the queue."
+      this._tempBookShelf = [];
 };
 
-//
-
-// AddBooksUI.prototype._makeBooks = function() {
-//   var newBook = Book(
-//    $("#add-title").val(), $("#add-author").val(), $("#add-pages").val(), $("#add-date").val());
-//   $('add-to-queue-btn').on('click', function(e){
-//     e.preventDefault();
-//     $(this).serializeObject().done(function(newBook){
-//       if(window.console) console.log(o);
-//       var j = JSON.stringify(o);
-//       alert(j);
-//     });
-//   });
-// });
 AddBooksUI.prototype._makeBooks = function() {
-
   var newInputs = $("form").serializeArray();
   // console.log(newInputs)
   var qBook = new Object();
 
+if ($("#add-title").val() !== "") {
   $.each(newInputs, function(index, entry) {
     if(entry.value) {
     qBook[entry.name] = entry.value;
     $("#book-details")[0].reset()
     }
-    console.log(qBook)
+    // console.log(qBook)
 });
 return qBook;
+}
+// alert("Please add a title.")
 };
 
-// var inputs_required = all inputs from my form which have attribute required;
-// function check_required_inputs() {
-//    if(inputs_required != "") {
-//      //create ajax with serialize() and submit form;
-//    }
-// } else {
-//    //highlight inputs that are empty and show a message;
-// }
-
 AddBooksUI.prototype._qBooks = function() {
-  // var inputsRequired = $("input[required]");
   var tempBook = this._makeBooks();
-//   var allComplete = true;
-//   var arr = [];
-// //   // console.log(Array.isArray(inputsRequired), 'isArray')
-// //
-// //   // $.each(inputsRequired, function(index, input) {
-//   for(var key in inputsRequired) {
-//     arr.push($('inputsRequired[key]').val())
-//     console.log(arr, 'arr');
-//
-// //   // if($('inputsRequired[key].val()') === "") {
-// //   //   console.log(inputsRequired[key].val(), 'value');
-// //   //   allComplete = false;
-// //   // }
-// };
-  // if(allComplete) {
     this._tempBookShelf.push(tempBook);
     this.$container.find('.book-count').html("You have " + this._tempBookShelf.length + " book(s) in your queue.");
-  // }
-  // else {
-  //   alert("There are one or more empty fields.");
-  //   return;
-  // }
 };
   // var bookHolder = {};
    // jQuery.each( newInputs, function( i, newInput);

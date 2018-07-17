@@ -51,9 +51,11 @@ body, th, btn {
   background-color: white;
 
 }
-
+.discover {
+  padding: 1em 0em 0em 3em;
+}
 .login {
-  
+
 }
 .main-search {
   padding-top: 8em;

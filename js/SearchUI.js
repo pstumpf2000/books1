@@ -1,7 +1,9 @@
 var SearchUI = function() {
   Library.call(this); //allows us to call the library in this function//
   this._tempBookShelf = new Array();
-  this.$container = $('#searchModal');
+  // this.$container = $('#searchModal');
+  this.$container = $('#data-table');
+
 };
 
 SearchUI.prototype = Object.create(Library.prototype);
@@ -11,33 +13,48 @@ SearchUI.prototype.init = function(){
 };
 
 SearchUI.prototype._bindEvents = function () {
-  $('#search-input').on('keypress', $.proxy(this._keyPressed, this))
+  // $('#search-input').on('keypress', $.proxy(this._keyPressed, this))
+  $('#search-input').on('submit', $.proxy(this._searchTable, this));
   // $('#search-input').on('keypress', $.proxy(this._handleModalOpen, this))
+  // $(document).on('objUpdate', $.proxy(this._updateTable, this));
 
 };
 
-SearchUI.prototype._keyPressed = function(e) {
-  var searchInput = e.currentTarget.value;
-  // var searchResults = this.search(searchInput)
-if(e.which == 13) {
-    console.log(this.search(searchInput));
-    // return this.search(searchInput);
-    if(this.search(searchInput).length) {
-      var searchResults = this.search(searchInput)
-      var ul = document.createElement("ul");
-      for (var key in searchResults) {
-        var li = document.createElement("li");
-        $(li).text(searchResults[key]);
-        ul.append(li)
-        console.log(ul);
-      }
+SearchUI.prototype._searchTable = function(e) {
+  e.preventDefault();
+  if(this.search($("#search-box").val()).length) {
+    $("#search-input")[0].reset()
+  }
+};
 
 
-
-      };
-
-    };
-  };
+// SearchUI.prototype._keyPressed = function(e) {
+//   var searchInput = e.currentTarget.value;
+//   // var searchResults = this.search(searchInput)
+// if(e.which == 13) {
+//     console.log(this.search(searchInput));
+//     // return this.search(searchInput);
+//     if(this.search(searchInput).length) {
+//       // var _self = this;
+//       var searchResults = this.search(searchInput)
+//       // this._handleEventTrigger('objUpdate');
+//       // this._updateTable(searchResults);
+//
+//
+//       // var ul = document.createElement("ul");
+//       // for (var key in searchResults) {
+//       //   var li = document.createElement("li");
+//       //   $(li).text(searchResults[key]);
+//       //   ul.append(li)
+//       //   console.log(ul);
+//       // }
+//
+//
+//
+//       };
+//
+//     };
+//   };
 
   // var searchResults = this.search(searchInput)
   // var sBook = new Object();
