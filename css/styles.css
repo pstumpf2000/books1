@@ -24,12 +24,12 @@ body, th, btn {
   font-size: 34px;
 }
 
-.suggestion {
+/* .suggestion {
   font-size: 14px;
   color: white;
   margin:1em 0 0 0;
   width: 100%;
-}
+} */
 
 .cover-art {
   margin-top: 1em;
@@ -38,6 +38,7 @@ body, th, btn {
 
 .all-authors {
   font-size: 10px;
+  margin-left: 5px;
 }
 .jumbotron {
   /* background-image: url("/Users/petrastumpf/Documents/Projects/books1/assets/punchbug.jpg"); */
@@ -57,11 +58,13 @@ body, th, btn {
 .login {
 
 }
+
+.suggestions {
+  display: block;
+  text-align: center;
+}
 .main-search {
   padding-top: 8em;
-}
-.all-authors {
-  margin-left: 5px;
 }
 
 input:invalid {

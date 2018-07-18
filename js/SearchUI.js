@@ -21,8 +21,14 @@ SearchUI.prototype._bindEvents = function () {
 };
 
 SearchUI.prototype._searchTable = function(e) {
+  console.log("search fired");
+  var searchInput = $("#search-box").val()
   e.preventDefault();
-  if(this.search($("#search-box").val()).length) {
+  if(searchInput.length) {
+    searchResults = this.search(searchInput);
+    // this._handleEventTrigger('subsetOfBookshelf', searchResults);
+  //if(this.search($("#search-box").val()).length) {
+
     $("#search-input")[0].reset()
   }
 };

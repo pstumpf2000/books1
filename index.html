@@ -279,17 +279,24 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+          <form id="remove-by-title">
+            <div class="form-group">
+              <label for="remove-title-Input">Remove book by Title</label>
+              <input class="form-control remove-title" id="remove-title" type="text" placeholder="Book Title">
+            </div>
+            <div class="btn-group justify-content-between">
+              <button type="button" class="btn btn-outline-primary" id="title-remove-btn">Remove by Title</button>
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+           </form>
+           <hr>
+        <form id="remove-by-author">
           <div class="form-group">
             <label for="remove-author-Input">Remove books by Author</label>
-            <input class="form-control remove-author" type="text" placeholder="Author Name">
-          </div>
-          <div class="form-group">
-            <label for="remove-title-Input">Remove book by Title</label>
-            <input class="form-control remove-title" type="text" placeholder="Book Title">
+            <input class="form-control" id="remove-author" type="text" placeholder="Author Name">
           </div>
           <div class="btn-group justify-content-between">
-            <button type="button" class="btn btn-outline-primary">Yes, remove</button>
+            <button type="button" class="btn btn-outline-primary" id="author-remove-btn">Remove by Author</button>
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
           </div>
          </form>
@@ -314,7 +321,7 @@
           <button type="button" class="btn btn-outline-primary" id="discover-by-title-btn">Discover by Book Title</button>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer suggestions">
       </div>
     </div>
   </div>
@@ -371,6 +378,7 @@
     <script src="js/jquery.js" charset="utf-8"></script>
     <script src="js/DataTableUI.js" charset="utf-8"></script>
     <script src="js/SearchUI.js" charset="utf-8"></script>
+    <script src="js/RemoveBooksUI.js" charset="utf-8"></script>
     <script src="js/SuggestionUI.js" charset="utf-8"></script>
     <script src="js/util.js" charset="utf-8"></script>
     <script src="js/showAuthorsUI.js" charset="utf-8"></script>

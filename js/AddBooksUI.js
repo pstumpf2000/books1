@@ -26,7 +26,7 @@ AddBooksUI.prototype._addBooksToLib = function () {
     if ($("#add-title").val() !== "") {
       // console.log("hi")
     var formBook = this._makeBooks()
-    this.addBook(formBook);
+    this.addBook(formBook, true);
     }
     // console.log("temp has length")
     if(this.addBooks(booksToAdd)) {

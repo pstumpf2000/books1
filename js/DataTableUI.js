@@ -14,19 +14,18 @@ DataTableUI.prototype.init = function() {
 };
 
 DataTableUI.prototype._bindEvents = function () {
-  //add native events here
+  $('#logo').on('click', $.proxy(this._updateTable, this));
+  $(document).on('click','.delete-row', $.proxy(this._deleteRow, this));
 };
 
 DataTableUI.prototype._bindCustomListeners = function () {
-  $(document).on('objUpdate', $.proxy(this._updateTable, this, window.bookShelf));
+  $(document).on('objUpdate', $.proxy(this._updateTable, this));
   $(document).one('objUpdate', $.proxy(this._addPill, this));
-
   // $(document).one('subsetOfBookshelf', $.proxy(this._addPill, this));
-  $('#logo').on('click', $.proxy(this._updateTable, this, window.bookShelf));
-  $(document).on('click','.delete-row', $.proxy(this._deleteRow, this));
   $(document).on('subsetOfBookshelf', $.proxy(this._subsetTable, this));
-
+  // $(document).on('subsetOfBookshelf', $.proxy(this._updateTable, this));
 };
+// this._handleEventTrigger('ObjUpdate', searchResults);
 
 // <thead>
 //   <tr>
@@ -41,25 +40,26 @@ DataTableUI.prototype._bindCustomListeners = function () {
 //   </tr>
 // </thead>
 DataTableUI.prototype._subsetTable = function (e) {
+  console.log("subset executed");
   this._updateTable(e.detail);
 };
 
-
-DataTableUI.prototype._updateTable = function (books) {
+DataTableUI.prototype._updateTable = function (e) {
   // alert(e.detail.data);
+  // var subsetOfBooks = books || window.bookShelf
   var _self = this;
   var $thead = this.$container.find('thead');
   $thead.empty();
   $thead.append(_self._createTableHead());
-  if(books.length) {
+  if(e.length) {
     // console.log("hi")
     // this.$container.find('#data-table-head').replaceWith(this._createTableHead(window.bookShelf[0]))
   // this._createTableHead()
   var $tbody = this.$container.find('tbody');
   $tbody.empty();
-  console.log("Update table function ran");
-  $.each(books, function(index, book){
-    console.log("Update table function ran after each");
+  // console.log("Update table function ran");
+  $.each(e, function(index, book){
+    // console.log("Update table function ran after each");
     $tbody.append(_self._createRow(book));
   })};
 

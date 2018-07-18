@@ -1,24 +1,12 @@
-var Library;
-
-(function() {
-  var instance;
-
-  Library = function() {
-    if (instance) {
-      return instance;
-    }
-// console.log('hi');
-    instance = this;
-    window.bookShelf = []; //Holding array
-  }
-})();
+var Library = function() {};
 
 Library.prototype.setLocal = function() {
-console.log("Bookshelf sent to local storage");
+  console.log("Bookshelf sent to local storage");
   localStorage.setItem('books', JSON.stringify(window.bookShelf));
 };
 
 Library.prototype.getLocal = function() {
+
   var bookData = JSON.parse(localStorage.getItem('books')) || [];
   // console.log(bookData)
   return window.bookShelf = bookData;
@@ -33,22 +21,26 @@ Library.prototype.getLocal = function() {
     var oData = oData || {}; //sets oData to an empty object if it does not have data
       if (sEvent) {
     var event = new CustomEvent(sEvent,{'detail': oData});
+    // var event = new CustomEvent(sEvent, oData);
    document.dispatchEvent(event);
  }
 // this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
 };
 
-  Library.prototype.addBook = function(book) {
+  Library.prototype.addBook = function(book, didUserAddABook) {
    for(var i=0; i<window.bookShelf.length; i++) {// && check author, number of pages.
      if(window.bookShelf[i].title === book.title) {//this currently doesn't allow two books with the same title.
         console.log('Oops! This book already exists.');
              return false;
      }
    }
-   window.bookShelf.push(new Book(book));
+   var wasAdded = window.bookShelf.push(new Book(book));
+   this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
    console.log('Your book was successfully added');
    this.setLocal(window.bookShelf);
-   this._handleEventTrigger('objUpdate');
+   if(didUserAddABook && wasAdded){
+   }
+   // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
    return true;
   }
 
@@ -62,7 +54,8 @@ Library.prototype.getLocal = function() {
          }
        }
        if(count >0) {
-         // this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
+         this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+         console.log("books added");
        }
        return count;
      }
@@ -75,7 +68,8 @@ Library.prototype.getLocal = function() {
       if (window.bookShelf[i].title === bookTitle) {
         window.bookShelf.splice(i, 1);
         this.setLocal(window.bookShelf);
-        this._handleEventTrigger('objUpdate');
+        this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+        // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
         return true;
       }
     }
@@ -94,7 +88,8 @@ Library.prototype.getLocal = function() {
     }
     window.bookShelf = newBookShelf;
     this.setLocal(window.bookShelf);
-    this._handleEventTrigger('objUpdate');
+    this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+    // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
     return true;
   };
 
@@ -137,6 +132,7 @@ Library.prototype.search = function (searchInput) { //this will search by author
     }
     return bookMatches;
   };
+
 
   Library.prototype.getBooksByAuthor = function(partialAuthor) {
   var bookMatches = new Array ();
