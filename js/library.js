@@ -6,17 +6,20 @@ Library.prototype.setLocal = function() {
 };
 
 Library.prototype.getLocal = function() {
-
   var bookData = JSON.parse(localStorage.getItem('books')) || [];
   // console.log(bookData)
   return window.bookShelf = bookData;
-    // if (bookData) {
+    if (bookData) {
+      for (var key in bookData) {
+        console.log(bookData);
+      window.bookShelf.push(new Book(key))
+    };
+  }
     //   window.bookShelf[i] = new Book(bookData[i].author, bookData[i].title, bookData[i].numPages, bookData[i].publishDate);
     //   console.log(window.bookShelf[i]);
-// }
 };
 
-  Library.prototype._handleEventTrigger = function(sEvent, oData) {
+Library.prototype._handleEventTrigger = function(sEvent, oData) {
     console.log("event handled");
     var oData = oData || {}; //sets oData to an empty object if it does not have data
       if (sEvent) {
@@ -27,22 +30,22 @@ Library.prototype.getLocal = function() {
 // this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
 };
 
-  Library.prototype.addBook = function(book, didUserAddABook) {
-   for(var i=0; i<window.bookShelf.length; i++) {// && check author, number of pages.
-     if(window.bookShelf[i].title === book.title) {//this currently doesn't allow two books with the same title.
-        console.log('Oops! This book already exists.');
-             return false;
-     }
-   }
-   var wasAdded = window.bookShelf.push(new Book(book));
-   this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
-   console.log('Your book was successfully added');
-   this.setLocal(window.bookShelf);
-   if(didUserAddABook && wasAdded){
-   }
+Library.prototype.addBook = function(book, didUserAddABook) {
+  for(var i=0; i<window.bookShelf.length; i++) {// && check author, number of pages.
+  if(window.bookShelf[i].title === book.title) {//this currently doesn't allow two books with the same title.
+    console.log('Oops! This book already exists.');
+         return false;
+  }
+  }
+  var wasAdded = window.bookShelf.push(new Book(book));
+  this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+  console.log('Your book was successfully added');
+  this.setLocal(window.bookShelf);
+  if(didUserAddABook && wasAdded){
+  }
    // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
    return true;
-  }
+}
 
    Library.prototype.addBooks = function(newBooks) {
      if (Array.isArray(newBooks)) {

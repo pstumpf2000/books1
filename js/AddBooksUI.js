@@ -1,7 +1,8 @@
 //create a constuctor, create a container//
 var AddBooksUI = function() {
   Library.call(this); //allows us to call the library in this function//
-  this._tempBookShelf = new Array();
+  this._tempBookShelf = [];
+  this.numberOfBooksInQ = 0
   this.$container = $('#addBookModal');
 };
 
@@ -16,33 +17,57 @@ AddBooksUI.prototype._bindEvents = function () {
   // $('#add-to-queue-btn').on('click', $.proxy(this._makeBooks, this))
   // $('#add-temp-to-lib-btn').on('click', $.proxy(this._clearQueue, this))
   $('#add-temp-to-lib-btn').on('click', $.proxy(this._addBooksToLib, this))
-  $('#add-temp-to-lib-btn').on('click', $.proxy(this._qBooks, this))
+  // $('#add-temp-to-lib-btn').on('click', $.proxy(this._qBooks, this))
   $('#add-to-queue-btn').on('click', $.proxy(this._qBooks, this))
 };
 
 AddBooksUI.prototype._addBooksToLib = function () {
-  var booksToAdd = this._tempBookShelf
-  if (booksToAdd.length) {
-    if ($("#add-title").val() !== "") {
-      // console.log("hi")
-    var formBook = this._makeBooks()
-    this.addBook(formBook, true);
-    }
-    // console.log("temp has length")
-    if(this.addBooks(booksToAdd)) {
-      // console.log(booksToAdd)
-      this.$container.modal('hide');
-      this._clearQueue();
-      alert("Success! Books added to queue.")
-    }
-  } else if ($("#add-title").val() !== ""){
-    var formBook = this._makeBooks()
-    this.addBook(formBook);
+  console.log(this._tempBookShelf);
+  if(this._tempBookShelf.length) {
+    if(this._tempBookShelf){
+    console.log("adding books");
+    console.log(this._tempBookShelf);
+    this.addBooks(this._tempBookShelf);
+    this._tempBookShelf = [];
+    this.numberOfBooksInQ = 0;
+    this.$container.find('.book-count').html("You have " + this.numberOfBooksInQ + " book(s) in your queue.");
     this.$container.modal('hide');
-  } else {
-    alert("Please add at least one book.");
-  };
+  }
+} else {
+  alert("Please add a book to your queue first.")
+  }
 };
+//
+// AddBooksUI.prototype._addBooksToLib = function () {
+//   var booksToAdd = this._tempBookShelf
+//   if (booksToAdd.length) {
+//     if ($("#add-title").val() !== "") {
+//       // console.log("hi")
+//     var formBook = this._makeBooks()
+//     this.addBook(formBook, true);
+//     // $("#book-details")[0].reset()1 kjn
+//     }
+//     // console.log("temp has length")
+//     if(this.addBooks(booksToAdd)) {
+//       // console.log(booksToAdd)
+//       this._tempBookShelf = [];
+//       this.numberOfBooksInQ = 0;
+//       this.$container.find('.book-count').html("You have " + this.numberOfBooksInQ + " book(s) in your queue.");
+//       this.$container.modal('hide');
+//       this._clearQueue();
+//       alert("Success! Books added to queue.")
+//     }
+//   } else if ($("#add-title").val() !== ""){
+//     var formBook = this._makeBooks()
+//     this.addBook(formBook);
+//     this._tempBookShelf = [];
+//     this.numberOfBooksInQ = 0;
+//     this.$container.find('.book-count').html("You have " + this.numberOfBooksInQ + " book(s) in your queue.");
+//     this.$container.modal('hide');
+//   } else {
+//     alert("Please add at least one book.");
+//   };
+// };
 
 AddBooksUI.prototype._handleModalOpen = function() {
   this.$container.modal('show');
@@ -61,10 +86,10 @@ if ($("#add-title").val() !== "") {
   $.each(newInputs, function(index, entry) {
     if(entry.value) {
     qBook[entry.name] = entry.value;
-    $("#book-details")[0].reset()
     }
     // console.log(qBook)
 });
+$("#book-details")[0].reset()
 return qBook;
 }
 // alert("Please add a title.")
@@ -72,8 +97,11 @@ return qBook;
 
 AddBooksUI.prototype._qBooks = function() {
   var tempBook = this._makeBooks();
+  console.log("qbooks log");
+  console.log(tempBook);
     this._tempBookShelf.push(tempBook);
-    this.$container.find('.book-count').html("You have " + this._tempBookShelf.length + " book(s) in your queue.");
+    this.numberOfBooksInQ++
+    this.$container.find('.book-count').html("You have " + this.numberOfBooksInQ + " book(s) in your queue.");
 };
   // var bookHolder = {};
    // jQuery.each( newInputs, function( i, newInput);

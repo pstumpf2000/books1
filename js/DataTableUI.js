@@ -28,7 +28,7 @@ DataTableUI.prototype._bindCustomListeners = function () {
 // this._handleEventTrigger('ObjUpdate', searchResults);
 
 DataTableUI.prototype._subsetTable = function (e) {
-  console.log("subset executed");
+  // console.log("subset executed");
   this._updateTable(e.detail);
 };
 
@@ -40,19 +40,21 @@ DataTableUI.prototype._updateTable = function (e) {
   $thead.empty();
   $thead.append(_self._createTableHead());
   if(e.length) {
-    // console.log("hi")
-    // this.$container.find('#data-table-head').replaceWith(this._createTableHead(window.bookShelf[0]))
-  // this._createTableHead()
+
   var $tbody = this.$container.find('tbody');
   $tbody.empty();
   // console.log("Update table function ran");
   $.each(e, function(index, book){
     // console.log("Update table function ran after each");
     $tbody.append(_self._createRow(book));
-  })};
-
+  })}
+  // else if (e.length = 0) {
+  //   var $tbody = this.$container.find('tbody');
+  //   $tbody.empty();
+  //   $($tbody).text("Sorry, you have no books in your library.");
+  // }
     return;
-  } ;
+  };
 
 DataTableUI.prototype._addPill = function () {
   // console.log("happened")
@@ -75,11 +77,11 @@ DataTableUI.prototype._createTableHead = function () {
     tr.append(th);
 
   }
-  console.log(thead);
+  // console.log(thead);
   $(deleteHeader).text("Delete");
   tr.append(deleteHeader);
 
-  console.log(tr);
+  // console.log(tr);
   // $("th:nth-child(3)").append('<span id="all-unique-authors" class="badge badge-pill badge-secondary">See All</span>');
   return tr;
 }
@@ -111,7 +113,7 @@ DataTableUI.prototype._createRow = function (book) {
 DataTableUI.prototype._deleteRow = function (e) {
   var bookToDelete = $(e.currentTarget).attr("data-bookTitle");
   this.removeBookByTitle(bookToDelete);
-  console.log("delete test")
+  // console.log("delete test")
 }
 
 $(function(){

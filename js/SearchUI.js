@@ -15,6 +15,8 @@ SearchUI.prototype._bindEvents = function () {
   // $('#search-input').on('keypress', $.proxy(this._keyPressed, this))
   $('#search-input').on('submit', $.proxy(this._searchTable, this));
   $('#logo').on('click', $.proxy(this._clearSearch, this));
+  $('#all-books').on('click', $.proxy(this._clearSearch, this));
+
   // $('#search-input').on('keypress', $.proxy(this._handleModalOpen, this))
   // $(document).on('objUpdate', $.proxy(this._updateTable, this));
 
