@@ -14,7 +14,7 @@ DataTableUI.prototype.init = function() {
 };
 
 DataTableUI.prototype._bindEvents = function () {
-  $('#logo').on('click', $.proxy(this._updateTable, this));
+  // $('#logo').on('click', $.proxy(this._subsetTable, this));
   $(document).on('click','.delete-row', $.proxy(this._deleteRow, this));
 };
 
@@ -27,18 +27,6 @@ DataTableUI.prototype._bindCustomListeners = function () {
 };
 // this._handleEventTrigger('ObjUpdate', searchResults);
 
-// <thead>
-//   <tr>
-//     <th scope="col"></th>
-//     <th scope="col">Title</th>
-//     <th scope="col">Author<span id="all-unique-authors" class="badge badge-pill badge-secondary">See All</span></th>
-//     <th scope="col">Pages</th>
-//     <th scope="col">Publish Date</th>
-//     <th scope="col">Rating</th>
-//     <th scope="col">Edit</th>
-//     <th scope="col">Delete?</th>
-//   </tr>
-// </thead>
 DataTableUI.prototype._subsetTable = function (e) {
   console.log("subset executed");
   this._updateTable(e.detail);
@@ -65,20 +53,7 @@ DataTableUI.prototype._updateTable = function (e) {
 
     return;
   } ;
-// } else {
-//   this.$container.find('#data-table-head').replaceWith(this._createTableHead(emptyBook));
-// }
-  // this._addPill();
-  // $('#data-table-head').one('load', function () {
-  //   $("th:nth-child(3)").append('<span id="all-unique-authors" class="badge badge-pill badge-secondary">See All</span>');
-  // })
-// };
 
-// $("#nextractorapply").one('click', function () {
-//     // executes only once
-//
-//      $("#main").append('<section id="nextractor" class="five"> </section>');
-// });
 DataTableUI.prototype._addPill = function () {
   // console.log("happened")
 $("th:nth-child(3)").append('<span id="all-unique-authors" class="badge badge-pill badge-secondary">See All</span>');

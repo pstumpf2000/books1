@@ -11,9 +11,7 @@ RemoveBooksUI.prototype.init = function(){
 };
 
 RemoveBooksUI.prototype._bindEvents = function () {
-  debugger;
   $('#title-remove-btn').on('click', $.proxy(this._removeBooksByTitleModal, this));
-  //$("#title-remove-btn").on('click',$.proxy(this._removeBooksByTitleModal,this));
   $('#author-remove-btn').on('click', $.proxy(this._removeBooksByAuthorModal, this));
 };
 
