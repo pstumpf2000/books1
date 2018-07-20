@@ -6,7 +6,7 @@ var DataTableUI = function(container){
 DataTableUI.prototype = Object.create(Library.prototype);
 
 DataTableUI.prototype.init = function() {
-  this.getLocal();
+  // this.getLocal();
   this._updateTable(window.bookShelf);
   this._addPill();
   this._bindEvents();
@@ -16,6 +16,7 @@ DataTableUI.prototype.init = function() {
 DataTableUI.prototype._bindEvents = function () {
   // $('#logo').on('click', $.proxy(this._subsetTable, this));
   $(document).on('click','.delete-row', $.proxy(this._deleteRow, this));
+  $(document).on('load', $.proxy(this._getBooksAndUpdateTable, this));
 };
 
 DataTableUI.prototype._bindCustomListeners = function () {
@@ -31,6 +32,23 @@ DataTableUI.prototype._subsetTable = function (e) {
   // console.log("subset executed");
   this._updateTable(e.detail);
 };
+
+DataTableUI.prototype._getBooksAndUpdateTable = function () {
+  // let dataBaseBooks =
+
+  $.ajax({
+    url: this.libraryURL,
+    dataType: 'json',
+    method: 'POST',
+    // data: formData,
+    success: data =>{
+      console.log(data);
+      this._updateTable(data)
+    }
+  });
+};
+
+
 
 DataTableUI.prototype._updateTable = function (e) {
   // alert(e.detail.data);

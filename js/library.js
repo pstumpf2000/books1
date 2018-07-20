@@ -1,23 +1,23 @@
 var Library = function() {};
 
-Library.prototype.setLocal = function() {
-  console.log("Bookshelf sent to local storage");
-  localStorage.setItem('books', JSON.stringify(window.bookShelf));
-};
-
-Library.prototype.getLocal = function() {
-  var bookData = JSON.parse(localStorage.getItem('books')) || [];
-  // console.log(bookData)
-  return window.bookShelf = bookData;
-    if (bookData) {
-      for (var key in bookData) {
-        console.log(bookData);
-      window.bookShelf.push(new Book(key))
-    };
-  }
-    //   window.bookShelf[i] = new Book(bookData[i].author, bookData[i].title, bookData[i].numPages, bookData[i].publishDate);
-    //   console.log(window.bookShelf[i]);
-};
+// Library.prototype.setLocal = function() {
+//   console.log("Bookshelf sent to local storage");
+//   localStorage.setItem('books', JSON.stringify(window.bookShelf));
+// };
+//
+// Library.prototype.getLocal = function() {
+//   var bookData = JSON.parse(localStorage.getItem('books')) || [];
+//   // console.log(bookData)
+//   return window.bookShelf = bookData;
+//     if (bookData) {
+//       for (var key in bookData) {
+//         console.log(bookData);
+//       window.bookShelf.push(new Book(key))
+//     };
+//   }
+//     //   window.bookShelf[i] = new Book(bookData[i].author, bookData[i].title, bookData[i].numPages, bookData[i].publishDate);
+//     //   console.log(window.bookShelf[i]);
+// };
 
 Library.prototype._handleEventTrigger = function(sEvent, oData) {
     console.log("event handled");
