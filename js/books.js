@@ -1,32 +1,14 @@
-
-var Book = function(title, author, numPages){
-  this.title = title;
-  this.author = author;
-  this.numPages = numPages;
+var Book = function(oArgs){
+  this.coverArt = oArgs.coverArt || "Cover Image";
+  this.title = String(oArgs.title);
+  this.author = String(oArgs.author);
+  this.numPages = Number(oArgs.numPages);
+  this.pubDate = new Date (oArgs.pubDate).getUTCFullYear(); //I'm having issues with the date need to try 'get UTC full year
+  this.rating = Number(oArgs.rating);
 };
-var Library = function(){
-  this.bookShelf = [];
-};
 
 
-
-Library.prototype.addBook = function(book) {
-   for(var i=0; i<this.bookShelf.length; i++) {
-     if(book.title === this.bookShelf[i].title) {
-
-var book1 = new Book ({
-    title: "Harry Potter",
-    author: "JK Rowling",
-    numPages: 234
-  });
-
-// var book2 = new Book("Spot","Jane",5);
-// var book3 = new Book("booktitle","authorperson",345);
-
-
-//document.addEventListener("DOMContentLoaded", function() {
- var gLibrary = new Library();//instance one
- // gLibrary.addBook(book1);
- // gLibrary.addBook(book2);
- // gLibrary.addBook(book3);
-// });
+// toLocaleDateString("en-us", {
+//        month: "numeric",
+//        day: "numeric",
+//        year: "numeric"
