@@ -34,7 +34,7 @@ Library.prototype._getData = function () {
       // this._updateTable(data);
           if (data) {
             for (var key in data) {
-              console.log(key);
+              // console.log(key);
               // console.log(bookData);
             window.bookShelf.push(new Book(data[key]));
             }
@@ -46,19 +46,6 @@ Library.prototype._getData = function () {
   })
 };
 
-// POST Function - this adds a book to the dataBase
-Library.prototype._postData () {
-  let formData = this._getFormData()
-  $.ajax({
-    url: this.libraryURL,
-    dataType: 'json',
-    method: 'POST',
-    data: formData,
-    success: data =>{
-      console.log(data);
-    }
-  });
-};
 
 Library.prototype._handleEventTrigger = function(sEvent, oData) {
     console.log("event handled");
@@ -71,6 +58,19 @@ Library.prototype._handleEventTrigger = function(sEvent, oData) {
 // this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
 };
 
+// POST Function - this adds a book to the dataBase
+Library.prototype._postBook = function(book) {
+$.ajax({
+  url: window.libraryURL,
+  dataType: 'json',
+  method: 'POST',
+  data: book,
+  success: data =>{
+    console.log(data);
+  }
+});
+};
+
 Library.prototype.addBook = function(book, didUserAddABook) {
   for(var i=0; i<window.bookShelf.length; i++) {// && check author, number of pages.
   if(window.bookShelf[i].title === book.title) {//this currently doesn't allow two books with the same title.
@@ -81,6 +81,17 @@ Library.prototype.addBook = function(book, didUserAddABook) {
   var wasAdded = window.bookShelf.push(new Book(book));
   this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
   console.log('Your book was successfully added');
+  this._postBook(book);
+  // $.ajax({ // POST Function - this adds a book to the dataBase
+  //   console.log("ajax is going to push " + book);
+  //   url: window.libraryURL,
+  //   dataType: 'json',
+  //   method: 'POST',
+  //   data: book,
+  //   success: data =>{
+  //     console.log(data);
+  //   }
+  // });
   // this.setLocal(window.bookShelf);
   // if(didUserAddABook && wasAdded){
   // }
