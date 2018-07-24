@@ -1,6 +1,7 @@
 var DataTableUI = function(container){
   Library.call(this);
   this.$container = $('#data-table');
+  // this.$container = $('#singleBookModal');
 };
 
 DataTableUI.prototype = Object.create(Library.prototype);
@@ -14,9 +15,11 @@ DataTableUI.prototype.init = function() {
   this._getData();
 };
 
+
 DataTableUI.prototype._bindEvents = function () {
   // $('#logo').on('click', $.proxy(this._subsetTable, this));
   $(document).on('click','.delete-row', $.proxy(this._deleteRow, this));
+  $(document).on('click','.edit-row', $.proxy(this._editModalOpen, this));
   // $(document).on('load', $.proxy(this._getBooksAndUpdateTable, this));
 };
 
@@ -99,7 +102,7 @@ DataTableUI.prototype._createTableHead = function () {
 
   }
   // console.log(thead);
-  $(deleteHeader).text("Delete");
+  $(deleteHeader).text("Edit|Delete");
   tr.append(deleteHeader);
 
   // console.log(tr);
@@ -109,13 +112,10 @@ DataTableUI.prototype._createTableHead = function () {
 
 DataTableUI.prototype._createRow = function (book) {
   var tr = document.createElement('tr');
-  var deleteBox = document.createElement('td')
+  var iconBox = document.createElement('td')
   var deleteIcon = document.createElement('i');
-  // var deleteInput = document.createElement('input');
-  // var att = document.createAttribute("type");
-  // att.value = "checkbox";
-  // deleteInput.setAttributeNode(att);
-// contentEditable=true
+  var editIcon = document.createElement('e')
+
   for(var key in book){
     var td = document.createElement('td');
     $(td).text(book[key]);
@@ -124,14 +124,20 @@ DataTableUI.prototype._createRow = function (book) {
       $(td).addClass('collapse');
     }
   }
-  tr.append(deleteBox);
-
+  tr.append(iconBox);
   $(deleteIcon).addClass("far fa-times-circle btn delete-row");
   $(deleteIcon).attr("data-bookID", book.id);//this will allow me to use the attribute, booktitle, when I call an event on this element
-  deleteBox.append(deleteIcon);
+  $(editIcon).addClass("fas fa-edit btn edit-row");
+  iconBox.append(editIcon);
+  iconBox.append(deleteIcon);
+
   // tr.append(document.createElement('td').append(deleteInput));
   // console.log(tr);
   return tr;
+};
+
+DataTableUI.prototype._editModalOpen = function() {
+  this.$container.modal('show');
 };
 
 DataTableUI.prototype._deleteRow = function (e) {
