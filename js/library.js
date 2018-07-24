@@ -1,6 +1,6 @@
 var Library = function() {};
 
-window.libraryURL = 'http://localhost:3002/library';
+window.libraryURL = 'http://localhost:3002/library/';
 
 // Library.prototype.setLocal = function() {
 //   console.log("Bookshelf sent to local storage");
@@ -71,6 +71,22 @@ $.ajax({
 });
 };
 
+Library.prototype._deleteBook = function(bookID){
+  console.log(bookID);
+  $.ajax({
+    url: window.libraryURL + bookID,
+    dataType: 'text',
+    method: 'DELETE',
+    data: bookID,
+    // success: function(data){
+    //   this is es5
+    // }
+    success: data =>{
+      console.log(data);
+    }
+  });
+};
+
 Library.prototype.addBook = function(book, didUserAddABook) {
   for(var i=0; i<window.bookShelf.length; i++) {// && check author, number of pages.
   if(window.bookShelf[i].title === book.title) {//this currently doesn't allow two books with the same title.
@@ -124,6 +140,22 @@ Library.prototype.addBook = function(book, didUserAddABook) {
         window.bookShelf.splice(i, 1);
         // this.setLocal(window.bookShelf);
         this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+        // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
+        return true;
+      }
+    }
+    return false;
+  };
+
+  Library.prototype.removeBookByID = function(bookID) {
+    for (var i = 0; i < window.bookShelf.length; i++) {
+      if (window.bookShelf[i].id === bookID) {
+        console.log(bookID);
+        window.bookShelf.splice(i, 1);
+        // this.setLocal(window.bookShelf);
+        this._deleteBook(bookID);
+        this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+
         // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
         return true;
       }

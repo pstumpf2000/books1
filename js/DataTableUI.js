@@ -127,7 +127,7 @@ DataTableUI.prototype._createRow = function (book) {
   tr.append(deleteBox);
 
   $(deleteIcon).addClass("far fa-times-circle btn delete-row");
-  $(deleteIcon).attr("data-bookTitle", book.title);//this will allow me to use the attribute, booktitle, when I call an event on this element
+  $(deleteIcon).attr("data-bookID", book.id);//this will allow me to use the attribute, booktitle, when I call an event on this element
   deleteBox.append(deleteIcon);
   // tr.append(document.createElement('td').append(deleteInput));
   // console.log(tr);
@@ -135,8 +135,10 @@ DataTableUI.prototype._createRow = function (book) {
 };
 
 DataTableUI.prototype._deleteRow = function (e) {
-  var bookToDelete = $(e.currentTarget).attr("data-bookTitle");
-  this.removeBookByTitle(bookToDelete);
+  var bookToDelete = $(e.currentTarget).attr("data-bookID");
+  this.removeBookByID(bookToDelete);
+  // this._deleteBook(bookToDelete);
+  console.log(bookToDelete);
   // console.log("delete test")
 }
 
