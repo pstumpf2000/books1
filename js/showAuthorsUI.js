@@ -6,7 +6,7 @@ var ShowAuthorsUI = function(container){
 ShowAuthorsUI.prototype = Object.create(Library.prototype);
 
 ShowAuthorsUI.prototype.init = function () {
-  this.getLocal();
+  // this.getLocal();
   this._bindEvents();
   return false;
 };

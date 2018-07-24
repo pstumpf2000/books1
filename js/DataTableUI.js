@@ -7,16 +7,17 @@ DataTableUI.prototype = Object.create(Library.prototype);
 
 DataTableUI.prototype.init = function() {
   // this.getLocal();
-  this._updateTable(window.bookShelf);
+  // this._updateTable(window.bookShelf);
   this._addPill();
   this._bindEvents();
   this._bindCustomListeners();
+  this._getData();
 };
 
 DataTableUI.prototype._bindEvents = function () {
   // $('#logo').on('click', $.proxy(this._subsetTable, this));
   $(document).on('click','.delete-row', $.proxy(this._deleteRow, this));
-  $(document).on('load', $.proxy(this._getBooksAndUpdateTable, this));
+  // $(document).on('load', $.proxy(this._getBooksAndUpdateTable, this));
 };
 
 DataTableUI.prototype._bindCustomListeners = function () {
@@ -33,21 +34,21 @@ DataTableUI.prototype._subsetTable = function (e) {
   this._updateTable(e.detail);
 };
 
-DataTableUI.prototype._getBooksAndUpdateTable = function () {
-  // let dataBaseBooks =
-
-  $.ajax({
-    url: this.libraryURL,
-    dataType: 'json',
-    method: 'POST',
-    // data: formData,
-    success: data =>{
-      console.log(data);
-      this._updateTable(data)
-    }
-  });
-};
-
+// DataTableUI.prototype._getBooksAndUpdateTable = function () {
+//   // let dataBaseBooks =
+// console.log("getbooks and update is running");
+//   $.ajax({
+//     url: this.libraryURL,
+//     dataType: 'json',
+//     method: 'GET',
+//     // data: formData,
+//     success: data =>{
+//       console.log(data);
+//       this._updateTable(data)
+//     }
+//   });
+// };
+//
 
 
 DataTableUI.prototype._updateTable = function (e) {
@@ -90,9 +91,11 @@ DataTableUI.prototype._createTableHead = function () {
 
   for(var key in emptyBook) {
     var th = document.createElement('th');
-
     $(th).text(key);
     tr.append(th);
+    if (key === 'version' || key === 'id') {
+      $(th).addClass('collapse');
+    }
 
   }
   // console.log(thead);
@@ -117,6 +120,9 @@ DataTableUI.prototype._createRow = function (book) {
     var td = document.createElement('td');
     $(td).text(book[key]);
     tr.append(td);
+    if (key === 'version' || key === 'id') {
+      $(td).addClass('collapse');
+    }
   }
   tr.append(deleteBox);
 
