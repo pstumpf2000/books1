@@ -37,19 +37,18 @@ EditBookUI.prototype._saveBookToLib = function (e) {
   var bookEdits = $("form").serializeArray();
   var newBook = new Object();
   console.log(this._originalBook.id);
-// console.log(bookEdits);
-  // if(bookEdits) {
+
+if (bookEdits) {
+
   $.each(bookEdits, function(index, entry) {
       if(entry.value) {
       newBook[entry.name] = entry.value;
       }
     });
-// console.log(newBook);
     var editedBook = new Book(newBook)
-    // console.log(editedBook);
     this._putBook(editedBook, this._originalBook.id);
-    // window.bookShelf.push(editedBook);
-    // this.$container.modal('hide');
+  }
+  this.$container.modal('hide');
 };
 
 

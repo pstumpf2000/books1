@@ -33,6 +33,7 @@ Library.prototype._getData = function () {
       // console.log(data);
       // this._updateTable(data);
           if (data) {
+            window.bookShelf = [];
             for (var key in data) {
               // console.log(key);
               // console.log(bookData);
@@ -99,9 +100,10 @@ Library.prototype._putBook = function(editedBook, id){
     // }
     success: data =>{
       console.log(data);
+      Library.prototype._getData(); //this is doubling the bookshelf
+
     }
   });
-  this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
 };
 
 Library.prototype.addBook = function(book, didUserAddABook) {
