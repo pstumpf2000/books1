@@ -146,6 +146,53 @@
   </div>
 </div><!--ENNDS MODAL----------------------->
 
+<!-- Edit Book Modal ---------------------------------------------->
+<div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="editBookModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="editBookModalLabel">Edit Book</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+<form id="book-details">
+<div class="form-group" >
+  <label for="titleIput">Title</label>
+  <input class="form-control" id="edit-title" name="title" type="text" placeholder="Book Title" required>
+  <label for="authorInput">Author</label>
+  <input class="form-control" id="edit-author" name="author" type="text" placeholder="Author's Full Name">
+  <label for="pagesInput">Pages</label>
+  <input class="form-control" id="edit-numPages" type="number" name="numPages" placeholder="635">
+  <label for="dateInput">Date Published</label>
+  <input class="form-control" id="edit-date" type="date" name="pubDate" placeholder="Date">
+  <label for="ratingInput">Rating</label>
+    <select multiple class="form-control" id="edit-rating" name="rating">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  <div class="custom-file">
+    <div class="form-group">
+      <input type="file" class="custom-file-input" id="customFile" name="coverArt">
+      <label class="custom-file-label cover-art" for="customFile">Choose Cover Art file</label>
+    </div>
+  </div>
+</div>
+</form>
+  <p class="book-count"></p>
+    <div class="modal-footer btn-group-vertical">
+      <button type="submit" class="btn btn-outline-primary" id="save-book">Save Book & Close</button>
+      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+    </div>
+  </div>
+</div>
+</div>
+</div><!--ENNDS MODAL----------------------->
+
 <!-- Single Book Modal ---------------------------------------------->
 <div class="modal fade" id="singleBookModal" tabindex="-1" role="dialog" aria-labelledby="singleBookModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -383,6 +430,7 @@
     <script src="js/util.js" charset="utf-8"></script>
     <script src="js/showAuthorsUI.js" charset="utf-8"></script>
     <script src="js/AddBooksUI.js" charset="utf-8"></script>
+    <script src="js/EditBookUI.js" charset="utf-8"></script>
     <script src="js/bootstrap.bundle.js" charset="utf-8"></script>
 
   </body>

@@ -1,7 +1,6 @@
 var DataTableUI = function(container){
   Library.call(this);
   this.$container = $('#data-table');
-  // this.$container = $('#singleBookModal');
 };
 
 DataTableUI.prototype = Object.create(Library.prototype);
@@ -19,7 +18,6 @@ DataTableUI.prototype.init = function() {
 DataTableUI.prototype._bindEvents = function () {
   // $('#logo').on('click', $.proxy(this._subsetTable, this));
   $(document).on('click','.delete-row', $.proxy(this._deleteRow, this));
-  $(document).on('click','.edit-row', $.proxy(this._editModalOpen, this));
   // $(document).on('load', $.proxy(this._getBooksAndUpdateTable, this));
 };
 
@@ -128,6 +126,8 @@ DataTableUI.prototype._createRow = function (book) {
   $(deleteIcon).addClass("far fa-times-circle btn delete-row");
   $(deleteIcon).attr("data-bookID", book.id);//this will allow me to use the attribute, booktitle, when I call an event on this element
   $(editIcon).addClass("fas fa-edit btn edit-row");
+  $(editIcon).attr("data-bookTitle", book.title);
+  $(editIcon).attr("data-bookID", book.id);
   iconBox.append(editIcon);
   iconBox.append(deleteIcon);
 
@@ -144,7 +144,7 @@ DataTableUI.prototype._deleteRow = function (e) {
   var bookToDelete = $(e.currentTarget).attr("data-bookID");
   this.removeBookByID(bookToDelete);
   // this._deleteBook(bookToDelete);
-  console.log(bookToDelete);
+  // console.log(bookToDelete);
   // console.log("delete test")
 }
 

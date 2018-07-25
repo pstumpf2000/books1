@@ -22,11 +22,11 @@ AddBooksUI.prototype._bindEvents = function () {
 };
 
 AddBooksUI.prototype._addBooksToLib = function () {
-  console.log(this._tempBookShelf);
+  // console.log(this._tempBookShelf);
   if(this._tempBookShelf.length) {
     if(this._tempBookShelf){
-    console.log("adding books");
-    console.log(this._tempBookShelf);
+    // console.log("adding books");
+    // console.log(this._tempBookShelf);
     this.addBooks(this._tempBookShelf);
     this._tempBookShelf = [];
     this.numberOfBooksInQ = 0;
@@ -87,9 +87,10 @@ if ($("#add-title").val() !== "") {
     if(entry.value) {
     qBook[entry.name] = entry.value;
     }
-    // console.log(qBook)
+
 });
 $("#book-details")[0].reset()
+// console.log(qBook)
 return qBook;
 }
 // alert("Please add a title.")
@@ -97,8 +98,8 @@ return qBook;
 
 AddBooksUI.prototype._qBooks = function() {
   var tempBook = this._makeBooks();
-  console.log("qbooks log");
-  console.log(tempBook);
+  // console.log("qbooks log");
+  // console.log(tempBook);
     this._tempBookShelf.push(tempBook);
     this.numberOfBooksInQ++
     this.$container.find('.book-count').html("You have " + this.numberOfBooksInQ + " book(s) in your queue.");
