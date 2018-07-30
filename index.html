@@ -74,7 +74,7 @@
             </tr>
 
             <!-- <tr>
-              <th data-toggle="modal" data-target="#singleBookModal" scope="row"><img src="https://placebeyonce.com/50-80" alt="Italian Trulli"></th>
+              <th data-toggle="modal" data-target="#singleBookModal" scope="row">< src="https://placebeyonce.com/50-80" alt="Italian Trulli"></th>
               <td contentEditable=true>Title</td>
               <td class="contentEditable">Author</td>
               <td class="contentEditable">Pages</td>
@@ -127,12 +127,13 @@
           <option>4</option>
           <option>5</option>
         </select>
-      <div class="custom-file">
-        <div class="form-group">
-          <input type="file" class="custom-file-input" id="customFile" name="coverArt">
-          <label class="custom-file-label cover-art" for="customFile">Choose Cover Art file</label>
+        <div class="form-group img-form">
+          <!-- <input type="file" onchange="previewFile()"><br>
+          < src="" height="200" alt="Image preview..."> -->
+          <input type="file" class="cover-file-input" id="coverFile" name="coverArt">
+          <img  src="" height="100" alt="Image preview..." id="cover-img">
+          <!-- <label class="custom-file-label cover-art" id="coverFile" input type="file" for="customFile">Choose Cover Art file</label> -->
         </div>
-      </div>
     </div>
   </form>
       <p class="book-count"></p>
@@ -166,7 +167,7 @@
   <label for="pagesInput">Pages</label>
   <input class="form-control" id="edit-numPages" type="number" name="numPages" placeholder="635">
   <label for="dateInput">Date Published</label>
-  <input class="form-control" id="edit-date" type="date" name="pubDate" placeholder="Date">
+  <input class="form-control" id="edit-date" type="year" name="pubDate" placeholder="Date">
   <label for="ratingInput">Rating</label>
     <select multiple class="form-control" id="edit-rating" name="rating">
       <option>1</option>
@@ -175,12 +176,15 @@
       <option>4</option>
       <option>5</option>
     </select>
-  <div class="custom-file">
-    <div class="form-group">
-      <input type="file" class="custom-file-input" id="customFile" name="coverArt">
-      <label class="custom-file-label cover-art" for="customFile">Choose Cover Art file</label>
+    <div class="form-group img-form">
+      <!-- <button type="button" name="edit-cover">Edit</button> -->
+
+      <input type="file" id="orig-cover" class="cover-file-input"  name="coverArt">
+      <img  src="" height="100" alt="Image preview..." id="orig-cover-img">
+      <!-- <label for="coverFile">Replace Image</label> -->
+      <!-- <input type="file" class="custom-file-input" id="customFile" name="coverArt">
+      <label class="custom-file-label cover-art" for="customFile">Choose Cover Art file</label> -->
     </div>
-  </div>
 </div>
 </form>
   <p class="book-count"></p>
@@ -207,7 +211,7 @@
         <form>
           <div class="form-group">
             <div class="media">
-              <!-- <img class="mr-3" src="https://picsum.photos/200/300/?random" alt="Generic placeholder image"> -->
+              <!-- < class="mr-3" src="https://picsum.photos/200/300/?random" alt="Generic placeholder image"> -->
               <div class="media-body">
                 <h5 class="mt-0">Title</h5>
                 <h5 class="mt-0">Author</h5>

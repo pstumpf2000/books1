@@ -19,7 +19,10 @@ AddBooksUI.prototype._bindEvents = function () {
   $('#add-temp-to-lib-btn').on('click', $.proxy(this._addBooksToLib, this))
   // $('#add-temp-to-lib-btn').on('click', $.proxy(this._qBooks, this))
   $('#add-to-queue-btn').on('click', $.proxy(this._qBooks, this))
+  $(document).on('change', '#coverFile', $.proxy(this._handleCoverUpload, this));
 };
+
+
 
 AddBooksUI.prototype._addBooksToLib = function () {
   // console.log(this._tempBookShelf);
@@ -89,7 +92,10 @@ if ($("#add-title").val() !== "") {
     }
 
 });
+  qBook["coverArt"]= $("#cover-img").attr("src")
+
 $("#book-details")[0].reset()
+$("#cover-img").attr("src", "assets/book-cover-placeholder.jpeg")
 // console.log(qBook)
 return qBook;
 }
@@ -104,6 +110,22 @@ AddBooksUI.prototype._qBooks = function() {
     this.numberOfBooksInQ++
     this.$container.find('.book-count').html("You have " + this.numberOfBooksInQ + " book(s) in your queue.");
 };
+
+AddBooksUI.prototype._handleCoverUpload = function() {
+  var preview = document.querySelector('#cover-img');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+console.log(file);
+
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+};
+
   // var bookHolder = {};
    // jQuery.each( newInputs, function( i, newInput);
 //    console.log(newInputs)

@@ -26,3 +26,32 @@ var uniques = function(arr) {
   }
   return aInstance;
 }
+
+// util.prototype._handleCoverUpload = function() {
+//   var preview = document.querySelector('#cover-img');
+//   var file    = document.querySelector('input[type=file]').files[0];
+//   var reader  = new FileReader();
+// console.log(file);
+//
+//   reader.addEventListener("load", function () {
+//     preview.src = reader.result;
+//   }, false);
+//
+//   if (file) {
+//     reader.readAsDataURL(file);
+//   }
+// };
+
+// function previewFile() {
+//   var preview = document.querySelector('img');
+//   var file    = document.querySelector('input[type=file]').files[0];
+//   var reader  = new FileReader();
+//
+//   reader.addEventListener("load", function () {
+//     preview.src = reader.result;
+//   }, false);
+//
+//   if (file) {
+//     reader.readAsDataURL(file);
+//   }
+// }

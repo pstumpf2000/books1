@@ -21,33 +21,6 @@ window.libraryURL = 'http://localhost:3002/library/';
 //     //   console.log(window.bookShelf[i]);
 // };
 
-// READ Function - this gets all the books from the database
-Library.prototype._getData = function () {
-  // let dataBaseBooks =
-  $.ajax({
-    url: window.libraryURL,
-    dataType: 'json',
-    method: 'GET',
-    // data: formData,
-    success: data => {
-      // console.log(data);
-      // this._updateTable(data);
-          if (data) {
-            window.bookShelf = [];
-            for (var key in data) {
-              // console.log(key);
-              // console.log(bookData);
-            window.bookShelf.push(new Book(data[key]));
-            }
-          }
-          // this._handleEventTrigger('objUpdate', window.bookShelf);
-          this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
-          // console.log(window.bookShelf);
-    }
-  })
-};
-
-
 Library.prototype._handleEventTrigger = function(sEvent, oData) {
     // console.log("event handled");
     var oData = oData || {}; //sets oData to an empty object if it does not have data
@@ -57,6 +30,31 @@ Library.prototype._handleEventTrigger = function(sEvent, oData) {
    document.dispatchEvent(event);
  }
 // this._handleEventTrigger("objUpdate", {detail: Library + " books were added"});
+};
+//-------------------------CRUD FUNCTIONS-------------------------
+// READ Function - this gets all the books from the database
+Library.prototype._getData = function () {
+  // console.log(window.libraryURL);
+  $.ajax({
+    url: window.libraryURL,
+    dataType: 'json',
+    method: 'GET',
+    // data: formData,
+    success: data => {
+
+      // this._updateTable(data);
+          if (data) {
+            window.bookShelf = [];
+            for (var key in data) {
+              // console.log(data[key]);
+            window.bookShelf.push(new Book(data[key]));
+            }
+          }
+          // this._handleEventTrigger('objUpdate', window.bookShelf);
+          this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+          // console.log(window.bookShelf);
+    }
+  })
 };
 
 // POST Function - this adds a book to the dataBase
@@ -71,7 +69,7 @@ $.ajax({
   }
 });
 };
-
+//Removes book from database
 Library.prototype._deleteBook = function(bookID){
   // console.log(bookID);
   $.ajax({
@@ -87,11 +85,11 @@ Library.prototype._deleteBook = function(bookID){
     }
   });
 };
-
-Library.prototype._putBook = function(editedBook, id){
+//Edits a book in the database
+Library.prototype._putBook = function(editedBook, originalId){
   // console.log(editedBook);
   $.ajax({
-    url: window.libraryURL + id,
+    url: window.libraryURL + originalId,
     dataType: 'text',
     method: 'PUT',
     data: editedBook,
@@ -99,9 +97,8 @@ Library.prototype._putBook = function(editedBook, id){
     //   this is es5
     // }
     success: data =>{
-      console.log(data);
-      Library.prototype._getData(); //this is doubling the bookshelf
-
+      // console.log(data);
+      Library.prototype._getData(); //this is doubling the bookshelf. solution = empty the bookshelf first in the get
     }
   });
 };
@@ -117,6 +114,8 @@ Library.prototype.addBook = function(book, didUserAddABook) {
   this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
   // console.log('Your book was successfully added');
   this._postBook(book);
+  // console.log("push was called");
+  // console.log(book);
   // $.ajax({ // POST Function - this adds a book to the dataBase
   //   console.log("ajax is going to push " + book);
   //   url: window.libraryURL,
@@ -134,70 +133,70 @@ Library.prototype.addBook = function(book, didUserAddABook) {
    return true;
 }
 
-   Library.prototype.addBooks = function(newBooks) {
-     if (Array.isArray(newBooks)) {
-       var count = 0;
-       for (var i = 0; i < newBooks.length; i++) {
-         if (this.addBook(newBooks[i])) {
-           count++;
-              // this.setLocal(window.bookShelf);
-         }
-       }
-       if(count >0) {
-         this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
-         // console.log("books added");
-       }
-       return count;
+Library.prototype.addBooks = function(newBooks) {
+ if (Array.isArray(newBooks)) {
+   var count = 0;
+   for (var i = 0; i < newBooks.length; i++) {
+     if (this.addBook(newBooks[i])) {
+       count++;
+          // this.setLocal(window.bookShelf);
      }
-   return "Sorry, your input must be an array."
- };
+   }
+   if(count >0) {
+     this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+     // console.log("books added");
+   }
+   return count;
+ }
+return "Sorry, your input must be an array."
+};
 
 
-  Library.prototype.removeBookByTitle = function(bookTitle) {
-    for (var i = 0; i < window.bookShelf.length; i++) {
-      if (window.bookShelf[i].title === bookTitle) {
-        window.bookShelf.splice(i, 1);
-        // this.setLocal(window.bookShelf);
-        this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
-        // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
-        return true;
-      }
+Library.prototype.removeBookByTitle = function(bookTitle) {
+  for (var i = 0; i < window.bookShelf.length; i++) {
+    if (window.bookShelf[i].title === bookTitle) {
+      window.bookShelf.splice(i, 1);
+      // this.setLocal(window.bookShelf);
+      this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+      // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
+      return true;
     }
+  }
+  return false;
+};
+
+Library.prototype.removeBookByID = function(bookID) {
+  for (var i = 0; i < window.bookShelf.length; i++) {
+    if (window.bookShelf[i].id === bookID) {
+      // console.log(bookID);
+      window.bookShelf.splice(i, 1);
+      // this.setLocal(window.bookShelf);
+      this._deleteBook(bookID);
+      this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+
+      // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
+      return true;
+    }
+  }
+  return false;
+};
+
+Library.prototype.removeBookByAuthor = function(bookAuthor) {
+  var newBookShelf = new Array(); //this is our new array for all the non-removed books
+  for (var i = 0; i < window.bookShelf.length; i++) {
+    if (window.bookShelf[i].author !== bookAuthor) {
+      newBookShelf.push(window.bookShelf[i]);
+    }
+  }
+  if (window.bookShelf.length === newBookShelf.length) {
     return false;
-  };
-
-  Library.prototype.removeBookByID = function(bookID) {
-    for (var i = 0; i < window.bookShelf.length; i++) {
-      if (window.bookShelf[i].id === bookID) {
-        // console.log(bookID);
-        window.bookShelf.splice(i, 1);
-        // this.setLocal(window.bookShelf);
-        this._deleteBook(bookID);
-        this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
-
-        // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
-        return true;
-      }
-    }
-    return false;
-  };
-
-  Library.prototype.removeBookByAuthor = function(bookAuthor) {
-    var newBookShelf = new Array(); //this is our new array for all the non-removed books
-    for (var i = 0; i < window.bookShelf.length; i++) {
-      if (window.bookShelf[i].author !== bookAuthor) {
-        newBookShelf.push(window.bookShelf[i]);
-      }
-    }
-    if (window.bookShelf.length === newBookShelf.length) {
-      return false;
-    }
-    window.bookShelf = newBookShelf;
-    // this.setLocal(window.bookShelf);
-    this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
-    // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
-    return true;
-  };
+  }
+  window.bookShelf = newBookShelf;
+  // this.setLocal(window.bookShelf);
+  this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+  // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
+  return true;
+};
 
 
 Library.prototype.search = function (searchInput) { //this will search by author and title
@@ -228,17 +227,17 @@ Library.prototype.search = function (searchInput) { //this will search by author
    // return uniqueResults;
 
 
-  Library.prototype.getBooksByTitle = function(partialTitle) {
-    var bookMatches = new Array ();
-    for(var i=0; i<window.bookShelf.length; i++) {
-      var currentBook = window.bookShelf[i]
-      var title = currentBook.title
-      if(title.indexOf(partialTitle) !== -1) {
-        bookMatches.push(new Book(currentBook));
-      }
+Library.prototype.getBooksByTitle = function(partialTitle) {
+  var bookMatches = new Array ();
+  for(var i=0; i<window.bookShelf.length; i++) {
+    var currentBook = window.bookShelf[i]
+    var title = currentBook.title
+    if(title.indexOf(partialTitle) !== -1) {
+      bookMatches.push(new Book(currentBook));
     }
-    return bookMatches;
-  };
+  }
+  return bookMatches;
+};
 
 Library.prototype.getExactBookByTitle = function(search) {
   bookOnShelf = window.bookShelf;
@@ -250,16 +249,16 @@ Library.prototype.getExactBookByTitle = function(search) {
 };
 
 
-  Library.prototype.getBooksByAuthor = function(partialAuthor) {
-  var bookMatches = new Array ();
-  for(var i=0; i<window.bookShelf.length; i++) {
-    var currentBook = window.bookShelf[i]
-    var author= currentBook.author
-    if(author.indexOf(partialAuthor)!== -1) {
-      bookMatches.push(new Book(currentBook));
-    }
+Library.prototype.getBooksByAuthor = function(partialAuthor) {
+var bookMatches = new Array ();
+for(var i=0; i<window.bookShelf.length; i++) {
+  var currentBook = window.bookShelf[i]
+  var author= currentBook.author
+  if(author.indexOf(partialAuthor)!== -1) {
+    bookMatches.push(new Book(currentBook));
   }
-  return bookMatches;
+}
+return bookMatches;
 };
 
 
@@ -274,21 +273,20 @@ Library.prototype.getAuthors = function() {
 };
 
 
-  Library.prototype.getRandomAuthorName = function() {
-  if(window.bookShelf.length > 0) {
-
+Library.prototype.getRandomAuthorName = function() {
+if(window.bookShelf.length > 0) {
     return((window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)].author));
   }
     return null;
 };
 
-  Library.prototype.getRandomBook = function() {
+Library.prototype.getRandomBook = function() {
 
-    if(window.bookShelf.length > 0) {
-      var randomBook = (new Book(window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)]));
-      return randomBook.title;
-    }
-       return null;
+  if(window.bookShelf.length > 0) {
+    var randomBook = (new Book(window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)]));
+    return randomBook.title;
+  }
+     return null;
 };
 
 // Library.prototype.search = function(input) {

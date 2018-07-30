@@ -35,23 +35,6 @@ DataTableUI.prototype._subsetTable = function (e) {
   this._updateTable(e.detail);
 };
 
-// DataTableUI.prototype._getBooksAndUpdateTable = function () {
-//   // let dataBaseBooks =
-// console.log("getbooks and update is running");
-//   $.ajax({
-//     url: this.libraryURL,
-//     dataType: 'json',
-//     method: 'GET',
-//     // data: formData,
-//     success: data =>{
-//       console.log(data);
-//       this._updateTable(data)
-//     }
-//   });
-// };
-//
-
-
 DataTableUI.prototype._updateTable = function (e) {
   // alert(e.detail.data);
   // var subsetOfBooks = books || window.bookShelf
@@ -110,18 +93,33 @@ DataTableUI.prototype._createTableHead = function () {
 
 DataTableUI.prototype._createRow = function (book) {
   var tr = document.createElement('tr');
-  var iconBox = document.createElement('td')
+  var iconBox = document.createElement('td');
   var deleteIcon = document.createElement('i');
-  var editIcon = document.createElement('e')
+  var editIcon = document.createElement('e');
+  // var bookImage = document.createElement('td');
 
   for(var key in book){
     var td = document.createElement('td');
-    $(td).text(book[key]);
-    tr.append(td);
+
     if (key === 'version' || key === 'id') {
       $(td).addClass('collapse');
     }
+    if (key === 'coverArt') {
+
+      var img = document.createElement('img');
+      $(img).attr('src', book[key]);
+      $(img).css('height','120');
+      console.log(book);
+      td.append(img);
+      tr.append(td);
+      // console.log(td);
+      // $(img).attr('alt', 'Cover Art');
+    } else {
+    $(td).text(book[key]);
+    tr.append(td);
   }
+  }
+  // tr.prepend(bookImage);
   tr.append(iconBox);
   $(deleteIcon).addClass("far fa-times-circle btn delete-row");
   $(deleteIcon).attr("data-bookID", book.id);//this will allow me to use the attribute, booktitle, when I call an event on this element
