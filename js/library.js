@@ -57,6 +57,30 @@ Library.prototype._getData = function () {
   })
 };
 
+Library.prototype._getOneBook = function () {
+  // console.log(window.libraryURL);
+  $.ajax({
+    url: window.libraryURL,
+    dataType: 'json',
+    method: 'GET',
+    // data: formData,
+    success: data => {
+
+      // this._updateTable(data);
+          if (data) {
+            window.bookShelf = [];
+            for (var key in data) {
+              console.log(data[key]);
+            window.bookShelf.push(new Book(data[key]));
+            }
+          }
+          // this._handleEventTrigger('objUpdate', window.bookShelf);
+          this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+          // console.log(window.bookShelf);
+    }
+  })
+};
+
 // POST Function - this adds a book to the dataBase
 Library.prototype._postBook = function(book) {
 $.ajax({
@@ -114,22 +138,7 @@ Library.prototype.addBook = function(book, didUserAddABook) {
   this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
   // console.log('Your book was successfully added');
   this._postBook(book);
-  // console.log("push was called");
-  // console.log(book);
-  // $.ajax({ // POST Function - this adds a book to the dataBase
-  //   console.log("ajax is going to push " + book);
-  //   url: window.libraryURL,
-  //   dataType: 'json',
-  //   method: 'POST',
-  //   data: book,
-  //   success: data =>{
-  //     console.log(data);
-  //   }
-  // });
-  // this.setLocal(window.bookShelf);
-  // if(didUserAddABook && wasAdded){
-  // }
-   // this._handleEventTrigger('subsetOfBookshelf',window.bookShelf);
+
    return true;
 }
 
@@ -211,22 +220,6 @@ Library.prototype.search = function (searchInput) { //this will search by author
   return searchResults;
 }
 
-   // uniqueResults = new Array ();
-   // return searchResults;                        value,index,self
- //   uniqueResults = searchResults.filter(function(value,index,array){
- //   // TO UNDERSTAND HOW THIS WORKS
- //   console.log(array.title);
- //   console.log(array.title.indexOf(value.title));
- //   console.log(value.title+"=value");
- //   console.log(index+"=index");
- //   // console.log("COMPARE: " + array.indexOf(value) + " === " + index);
- // return array.title.indexOf(value.title) === index; //if callback is true add author to returned array
- // })
- // return uniqueResults;
-   // var uniqueResults = Array.from(new Set(searchResults));
-   // return uniqueResults;
-
-
 Library.prototype.getBooksByTitle = function(partialTitle) {
   var bookMatches = new Array ();
   for(var i=0; i<window.bookShelf.length; i++) {
@@ -284,6 +277,7 @@ Library.prototype.getRandomBook = function() {
 
   if(window.bookShelf.length > 0) {
     var randomBook = (new Book(window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)]));
+    console.log(randomBook);
     return randomBook.title;
   }
      return null;

@@ -109,7 +109,7 @@ DataTableUI.prototype._createRow = function (book) {
       var img = document.createElement('img');
       $(img).attr('src', book[key]);
       $(img).css('height','120');
-      console.log(book);
+      // console.log(book);
       td.append(img);
       tr.append(td);
       // console.log(td);
