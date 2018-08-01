@@ -57,29 +57,22 @@ Library.prototype._getData = function () {
   })
 };
 
-Library.prototype._getOneBook = function () {
-  // console.log(window.libraryURL);
+Library.prototype._getOneBook = function (id) {
+  console.log("we're in the Ajax get function");
   $.ajax({
-    url: window.libraryURL,
+    url: window.libraryURL + id,
     dataType: 'json',
     method: 'GET',
     // data: formData,
     success: data => {
-
-      // this._updateTable(data);
+      console.log(data);
           if (data) {
-            window.bookShelf = [];
-            for (var key in data) {
-              console.log(data[key]);
-            window.bookShelf.push(new Book(data[key]));
-            }
-          }
-          // this._handleEventTrigger('objUpdate', window.bookShelf);
-          this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
-          // console.log(window.bookShelf);
+            this._randomTitle(data.title)
     }
+  }
   })
 };
+
 
 // POST Function - this adds a book to the dataBase
 Library.prototype._postBook = function(book) {
@@ -276,9 +269,9 @@ if(window.bookShelf.length > 0) {
 Library.prototype.getRandomBook = function() {
 
   if(window.bookShelf.length > 0) {
-    var randomBook = (new Book(window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)]));
-    console.log(randomBook);
-    return randomBook.title;
+    var randomBook = (window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)]);
+    // console.log(randomBook);
+    this._getOneBook(randomBook.id)
   }
      return null;
 };

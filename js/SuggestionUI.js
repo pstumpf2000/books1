@@ -12,7 +12,7 @@ SuggestionUI.prototype.init = function(){
 
 SuggestionUI.prototype._bindEvents = function () {
   $('#discover-by-author-btn').on('click', $.proxy(this._randomAuthor, this));
-  $('#discover-by-title-btn').on('click', $.proxy(this._randomTitle, this));
+  $('#discover-by-title-btn').on('click', $.proxy(this.getRandomBook, this));
 };
 
 SuggestionUI.prototype._randomAuthor = function() {
@@ -25,10 +25,10 @@ SuggestionUI.prototype._randomAuthor = function() {
   return false;
 };
 
-SuggestionUI.prototype._randomTitle = function() {
-  if(this.getRandomBook()) {
+SuggestionUI.prototype._randomTitle = function(titleFromDatabase) {
+  if(titleFromDatabase) {
     // this.$container.modal('show');
-    this.$container.find('.modal-footer').html(this.getRandomBook());
+    this.$container.find('.modal-footer').html(titleFromDatabase);
   } else {
     alert('Oops, there are no books to display.');
   }

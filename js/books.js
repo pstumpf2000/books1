@@ -1,4 +1,5 @@
 var Book = function(oArgs){
+  // console.log(oArgs);
   this.coverArt = oArgs.coverArt || 'assets/book-cover-placeholder.jpeg';
   this.title = String(oArgs.title);
   this.author = String(oArgs.author);
@@ -8,7 +9,7 @@ var Book = function(oArgs){
   this.rating = Number(oArgs.rating);
   this.version = Number(oArgs.__v);
   this.id = String(oArgs._id);
-
+// console.log(oArgs);
 };
 
 
