@@ -93,9 +93,9 @@ DataTableUI.prototype._createTableHead = function () {
 
 DataTableUI.prototype._createRow = function (book) {
   var tr = document.createElement('tr');
-  var iconBox = document.createElement('td');
-  var deleteIcon = document.createElement('i');
-  var editIcon = document.createElement('e');
+  // var iconBox = document.createElement('td');
+  // var deleteIcon = document.createElement('i');
+  // var editIcon = document.createElement('e');
   // var bookImage = document.createElement('td');
 
   for(var key in book){
@@ -120,7 +120,25 @@ DataTableUI.prototype._createRow = function (book) {
   }
   }
   // tr.prepend(bookImage);
-  tr.append(iconBox);
+  tr.append(this._createDeleteEditCol(book));
+  // $(deleteIcon).addClass("far fa-times-circle btn delete-row");
+  // $(deleteIcon).attr("data-bookID", book.id);//this will allow me to use the attribute, booktitle, when I call an event on this element
+  // $(editIcon).addClass("fas fa-edit btn edit-row");
+  // $(editIcon).attr("data-bookTitle", book.title);
+  // $(editIcon).attr("data-bookID", book.id);
+  // iconBox.append(editIcon);
+  // iconBox.append(deleteIcon);
+
+  // tr.append(document.createElement('td').append(deleteInput));
+  // console.log(tr);
+  return tr;
+};
+
+DataTableUI.prototype._createDeleteEditCol = function (book) {
+  var iconBox = document.createElement('td');
+  var deleteIcon = document.createElement('i');
+  var editIcon = document.createElement('e');
+
   $(deleteIcon).addClass("far fa-times-circle btn delete-row");
   $(deleteIcon).attr("data-bookID", book.id);//this will allow me to use the attribute, booktitle, when I call an event on this element
   $(editIcon).addClass("fas fa-edit btn edit-row");
@@ -129,9 +147,7 @@ DataTableUI.prototype._createRow = function (book) {
   iconBox.append(editIcon);
   iconBox.append(deleteIcon);
 
-  // tr.append(document.createElement('td').append(deleteInput));
-  // console.log(tr);
-  return tr;
+  return iconBox;
 };
 
 DataTableUI.prototype._editModalOpen = function() {

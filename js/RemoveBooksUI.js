@@ -15,13 +15,14 @@ RemoveBooksUI.prototype._bindEvents = function () {
   $('#author-remove-btn').on('click', $.proxy(this._removeBooksByAuthorModal, this));
 };
 
-
 RemoveBooksUI.prototype._removeBooksByTitleModal = function() {
   var titleToDelete = $("#remove-title").val();
+  console.log($("#remove-title").val());
   // if(this.getBooksByTitle(titleToDelete) !== []) {
     // console.log(this.getBooksByTitle(titleToDelete))
     if(confirm("Do you really want to delete " + titleToDelete + "?")) {
       if(this.removeBookByTitle(titleToDelete)) {
+        // this.removeBookByID(bookToDelete);
         $("#remove-by-title")[0].reset();
         return;
       }
@@ -33,18 +34,16 @@ RemoveBooksUI.prototype._removeBooksByTitleModal = function() {
 };
 
 RemoveBooksUI.prototype._removeBooksByAuthorModal = function() {
-  console.log("AURHORS");
-  //alert("This button works");
   var authorToDelete = $("#remove-author").val()
-  // if(this.getBooksByAuthor(authorToDelete) !== []) {
+  if (authorToDelete) {
     if(confirm("Do you really want to delete all books by " + authorToDelete + "?")) {
-      if(this.removeBookByAuthor(authorToDelete)) {
-        $("#remove-by-author")[0].reset();
-        return;
-      }
+      var booksToDelete = this.getBooksByExactAuthorAndDelete(authorToDelete)
     }
-  // }
+        $("#remove-by-author")[0].reset();
+        this.$container.modal('hide');
+  } else {
   alert("We can't find that book. Please enter an exact title.");
+  }
 };
 
 
