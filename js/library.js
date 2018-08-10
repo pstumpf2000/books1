@@ -73,6 +73,15 @@ Library.prototype._getOneBook = function (id) {
   })
 };
 
+//GET - search
+Library.prototype._getSearchResults = function (searchParam) {
+  return $.ajax({
+    url: window.libraryURL+'search/'+ searchParam,
+    dataType: 'json',
+    method: 'GET'
+    // data:
+  })
+}
 
 // POST Function - this adds a book to the dataBase
 Library.prototype._postBook = function(book) {

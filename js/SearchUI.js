@@ -1,6 +1,6 @@
 var SearchUI = function() {
   Library.call(this); //allows us to call the library in this function//
-  this._tempBookShelf = new Array();
+  this._searchResultsBookShelf = new Array();
   // this.$container = $('#searchModal');
   this.$container = $('#data-table');
 
@@ -22,18 +22,35 @@ SearchUI.prototype._bindEvents = function () {
 
 };
 
-SearchUI.prototype._searchTable = function(e) {
-  console.log("search fired");
-  var searchInput = $("#search-box").val()
+// SearchUI.prototype._searchTable = function(e) {
+//   console.log("search fired");
+//   var searchInput = $("#search-box").val()
+//   e.preventDefault(e);
+//   if(searchInput.length) {
+//     searchResults = this.search(searchInput);
+//     $("#search-input")[0].reset()
+//   }
+// };
+
+
+SearchUI.prototype._searchTable = function (e) {
+  searchInput = $("#search-box").val()
   e.preventDefault(e);
-  if(searchInput.length) {
-    searchResults = this.search(searchInput);
-    $("#search-input")[0].reset()
-  }
+  this._getSearchResults(searchInput).then((res)=>{//es6 this is a promise
+    if(res){
+      for(item in res){
+        this._searchResultsBookShelf.push(new Book(res[item]));
+      }
+      this._handleEventTrigger('subsetOfBookshelf', this._searchResultsBookShelf);
+      this._searchResultsBookShelf = []
+    }
+  });
 };
 
 SearchUI.prototype._clearSearch = function() {
   this._handleEventTrigger('subsetOfBookshelf', window.bookShelf);
+   $("#search-input")[0].reset()
+
 }
 
 
